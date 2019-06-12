@@ -10,5 +10,15 @@ namespace TarOh.Models
     {
         [Key]
         public int OrdinalCommentId { get; set; }
+
+        public int CardId { get; set; }
+
+        public string UserId { get; set; }
+
+        public string Comment { get; set; }
+
+        public ApplicationUser User { get; set; }
+
+        public Card Card { get; set; }
     }
 }

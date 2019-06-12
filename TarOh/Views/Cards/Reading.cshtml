@@ -21,6 +21,9 @@
                 Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
                 Definition: @Html.DisplayFor(modelItem => card.UpDefinition) ||
                 
+                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@card.CardId">My Comments</a>
+
+
             </p>
             
         }
@@ -31,6 +34,8 @@
                 Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
                 Definition: @Html.DisplayFor(modelItem => card.DownDefinition) ||
                 
+                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@card.CardId">My Comments</a>
+
             </p>
                 
                 
@@ -47,8 +52,10 @@
     {
         <div>.....ORDINAL POSITION.....</div>
         <p>
-            Position: @Html.DisplayFor(modelItem => ordinalPosition.Name) || 
+            Position: @Html.DisplayFor(modelItem => ordinalPosition.Name) ||
             Definition: @Html.DisplayFor(modelItem => ordinalPosition.Definition)
+            <a target="_blank" asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@ordinalPosition.OrdinalPositionId">My Comments</a>
+
         </p>
         
     }
