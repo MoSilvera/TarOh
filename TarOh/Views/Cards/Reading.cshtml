@@ -18,10 +18,9 @@
         if (cardDirection % 2 == 0)
         {
             <p>
-                @Html.DisplayFor(modelItem => card.CardType)
-
-                @Html.DisplayFor(modelItem => card.UpDefinition)
-                @cardDirection
+                Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
+                Definition: @Html.DisplayFor(modelItem => card.UpDefinition) ||
+                
             </p>
             
         }
@@ -29,9 +28,9 @@
         {
        
             <p>
-                @Html.DisplayFor(modelItem => card.CardType)
-                @Html.DisplayFor(modelItem => card.DownDefinition)
-                @cardDirection
+                Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
+                Definition: @Html.DisplayFor(modelItem => card.DownDefinition) ||
+                
             </p>
                 
                 
@@ -46,9 +45,10 @@
 
     foreach (var ordinalPosition in item.OrdinalPositions)
     {
-        <p>.....ORDINAL POSITION.....
-            @Html.DisplayFor(modelItem => ordinalPosition.Name)
-            @Html.DisplayFor(modelItem => ordinalPosition.Definition)
+        <div>.....ORDINAL POSITION.....</div>
+        <p>
+            Position: @Html.DisplayFor(modelItem => ordinalPosition.Name) || 
+            Definition: @Html.DisplayFor(modelItem => ordinalPosition.Definition)
         </p>
         
     }
