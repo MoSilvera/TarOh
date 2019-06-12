@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TarOh.Models.ViewModels.Reading>
+@{
+    ViewData["Title"] = "Reading";
+}
+
+<h1>Reading</h1>
+
+@foreach (var item in Model)
+{
+
+
+
+    foreach (var card in item.Cards)
+    {
+        Random rnd = new Random();
+        int cardDirection = rnd.Next(1, 3);
+
+        if (cardDirection % 2 == 0)
+        {
+            <p>
+                @Html.DisplayFor(modelItem => card.CardType)
+
+                @Html.DisplayFor(modelItem => card.UpDefinition)
+                @cardDirection
+            </p>
+            
+        }
+        else
+        {
+       
+            <p>
+                @Html.DisplayFor(modelItem => card.CardType)
+                @Html.DisplayFor(modelItem => card.DownDefinition)
+                @cardDirection
+            </p>
+                
+                
+            
+        }
+
+    }
+
+
+
+
+
+    foreach (var ordinalPosition in item.OrdinalPositions)
+    {
+        <p>.....ORDINAL POSITION.....
+            @Html.DisplayFor(modelItem => ordinalPosition.Name)
+            @Html.DisplayFor(modelItem => ordinalPosition.Definition)
+        </p>
+        
+    }
+}
+

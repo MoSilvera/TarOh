@@ -1,0 +1,94 @@
+﻿@model IEnumerable<TarOh.Models.Card>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpDefinition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownDefinition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardType)
+            </th>
+            <th>
+                random number
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            Random rnd = new Random();
+            int stuff = rnd.Next(1, 3);
+
+            if (stuff % 2 == 0)
+            {
+
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImagePath)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpDefinition)
+                    </td>
+                    <td>
+                       
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardType.Name)
+                    </td>
+                    <td>
+                        @stuff
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CardId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CardId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CardId">Delete</a>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImagePath)
+                    </td>
+                    <td>
+                       
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DownDefinition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardType.Name)
+                    </td>
+                    <td>
+                        @stuff
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CardId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CardId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CardId">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
