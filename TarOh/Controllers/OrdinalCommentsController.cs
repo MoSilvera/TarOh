@@ -8,26 +8,48 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TarOh.Data;
 using TarOh.Models;
+using TarOh.Models.ViewModels;
 
 namespace TarOh.Controllers
 {
     public class OrdinalCommentsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        
+        
+            private readonly ApplicationDbContext _context;
+            private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrdinalCommentsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+            public OrdinalCommentsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+            {
+                _context = context;
+                _userManager = userManager;
+            }
+            private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+            public async Task<IActionResult> GetUserOrdinalComments(int? id)
         {
-            _context = context;
-            _userManager = userManager;
+            var user = await GetCurrentUserAsync();
+            List<OrdinalCommentWithId> viewModelList = new List<OrdinalCommentWithId>();
+            OrdinalCommentWithId ordinalCommentDataViewModel = new OrdinalCommentWithId
+            {
+                OrdinalComments = await _context.OrdinalComment
+                .Include(o => o.OrdinalPosition)
+                .Include(o => o.User)
+                .Where(o => o.OrdinalPositionId == id && o.User.Id == user.Id).ToListAsync(),
+                OrdinalId = id
+
+            };
+            viewModelList.Add(ordinalCommentDataViewModel);
+
+            
+
+            return View( viewModelList.AsEnumerable());
         }
-
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
-
         // GET: OrdinalComments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.OrdinalComment.ToListAsync());
+            var applicationDbContext = _context.OrdinalComment.Include(o => o.OrdinalPosition).Include(o => o.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: OrdinalComments/Details/5
@@ -39,6 +61,8 @@ namespace TarOh.Controllers
             }
 
             var ordinalComment = await _context.OrdinalComment
+                .Include(o => o.OrdinalPosition)
+                .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.OrdinalCommentId == id);
             if (ordinalComment == null)
             {
@@ -49,8 +73,10 @@ namespace TarOh.Controllers
         }
 
         // GET: OrdinalComments/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["OrdinalPositionId"] = id;
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
         }
 
@@ -59,28 +85,21 @@ namespace TarOh.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrdinalCommentId")] OrdinalComment ordinalComment)
+        public async Task<IActionResult> Create(int id, [Bind("OrdinalCommentId,Comment")] OrdinalComment ordinalComment)
         {
+            var user = await GetCurrentUserAsync();
+            ordinalComment.OrdinalPositionId = id;
+            ordinalComment.UserId = user.Id;
             if (ModelState.IsValid)
             {
                 _context.Add(ordinalComment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetUserOrdinalComments", new { id = id });
             }
+            
+            
             return View(ordinalComment);
         }
-
-        public async Task<IActionResult> GetUserOrdinalComments(int? id)
-        {
-            var user = await GetCurrentUserAsync();
-            var applicationDbContext = _context.OrdinalComment
-                .Include(o => o.Card)
-                .Include(o => o.User)
-                .Where(o => o.CardId == id && o.User.Id == user.Id);
-
-            return View(await applicationDbContext.ToListAsync());
-        }
-
 
         // GET: OrdinalComments/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -95,6 +114,8 @@ namespace TarOh.Controllers
             {
                 return NotFound();
             }
+            ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", ordinalComment.OrdinalPositionId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ordinalComment.UserId);
             return View(ordinalComment);
         }
 
@@ -103,7 +124,7 @@ namespace TarOh.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrdinalCommentId")] OrdinalComment ordinalComment)
+        public async Task<IActionResult> Edit(int id, [Bind("OrdinalCommentId,CardId,UserId,Comment")] OrdinalComment ordinalComment)
         {
             if (id != ordinalComment.OrdinalCommentId)
             {
@@ -130,6 +151,8 @@ namespace TarOh.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", ordinalComment.OrdinalPositionId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ordinalComment.UserId);
             return View(ordinalComment);
         }
 
@@ -142,6 +165,8 @@ namespace TarOh.Controllers
             }
 
             var ordinalComment = await _context.OrdinalComment
+                .Include(o => o.OrdinalPosition)
+                .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.OrdinalCommentId == id);
             if (ordinalComment == null)
             {

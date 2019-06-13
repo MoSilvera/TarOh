@@ -11,7 +11,7 @@ namespace TarOh.Models
         [Key]
         public int OrdinalCommentId { get; set; }
 
-        public int CardId { get; set; }
+        public int OrdinalPositionId { get; set; }
 
         public string UserId { get; set; }
 
@@ -19,6 +19,6 @@ namespace TarOh.Models
 
         public ApplicationUser User { get; set; }
 
-        public Card Card { get; set; }
+        public OrdinalPosition OrdinalPosition { get; set; }
     }
 }
