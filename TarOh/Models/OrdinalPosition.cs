@@ -16,5 +16,7 @@ namespace TarOh.Models
         public string Definition { get; set; }
 
         public List<OrdinalComment> OrdinalComments {get; set;}
+
+        public List<SavedSpread> SavedSpreads { get; set; }
     }
 }

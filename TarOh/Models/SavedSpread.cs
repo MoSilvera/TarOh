@@ -22,5 +22,7 @@ namespace TarOh.Models
         public OrdinalPosition OrdinalPosition { get; set; }
 
         public Card Card { get; set; }
+
+        public Spread Spread { get; set; }
     }
 }

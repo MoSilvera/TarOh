@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,18 +14,48 @@ namespace TarOh.Controllers
     public class SpreadsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SpreadsController(ApplicationDbContext context)
+        public SpreadsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
-
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         // GET: Spreads
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Spread.Include(s => s.User);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        public async Task<IActionResult> MySavedSpreads()
+        {
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Spread
+                .Include(s => s.User)
+                .Where(s => s.UserId == user.Id);
+            
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> ViewSavedSpread(int? id)
+        {
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Spread
+                .Include(s => s.SavedSpreads)
+                .ThenInclude(ss => ss.Card)
+                .ThenInclude(ct => ct.CardType)
+                .Include(s => s.SavedSpreads)
+                .ThenInclude(ss => ss.OrdinalPosition)
+                .Where(s => s.SpreadId == id);
+
+             return View(await applicationDbContext.ToListAsync());
+        }
+
+        
 
         // GET: Spreads/Details/5
         public async Task<IActionResult> Details(int? id)

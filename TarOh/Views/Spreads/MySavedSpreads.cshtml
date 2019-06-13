@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TarOh.Models.Spread>
+
+@{
+    ViewData["Title"] = "MySavedSpreads";
+}
+
+<h1>MySavedSpreads</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReadingDate)
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReadingDate)
+            </td>
+            
+            <td>
+                <a asp-action="ViewSavedSpread" asp-route-id="@item.SpreadId">View Spread</a> |
+                <a asp-action="Delete" asp-route-id="@item.SpreadId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

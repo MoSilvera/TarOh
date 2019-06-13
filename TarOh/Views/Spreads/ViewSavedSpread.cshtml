@@ -1,0 +1,39 @@
+﻿@model IEnumerable<TarOh.Models.Spread>
+
+@{
+    ViewData["Title"] = "ViewSavedSpread";
+}
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+>
+    
+@foreach (var item in Model) {
+        <h3>@item.Name</h3>
+        
+         @foreach(var savedSpread in item.SavedSpreads)
+         {
+             if (savedSpread.CardDirection == true)
+             {  
+                <p>
+                    Direction: Up
+                    @savedSpread.Card.CardType.Name
+                    @savedSpread.OrdinalPosition.Name
+                </p>
+             }
+             else
+             {
+                 <p>
+                     Direction: Down
+                     @savedSpread.Card.CardType.Name
+                     @savedSpread.OrdinalPosition.Name
+                 </p>
+             }
+         }
+            
+}
+    
+

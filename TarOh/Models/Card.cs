@@ -29,5 +29,7 @@ namespace TarOh.Models
 
         public List<CardComment> CardComments {get; set;}
 
+        public List <SavedSpread> SavedSpreads { get; set; }
+
     }
 }
