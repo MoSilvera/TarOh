@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TarOh.Models.CardComment>
+﻿@model IEnumerable<TarOh.Models.SavedSpread>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Comment)
+                @Html.DisplayNameFor(model => model.OrdinalId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.CardDirection)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Card)
@@ -28,18 +28,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Comment)
+                @Html.DisplayFor(modelItem => item.OrdinalId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.CardDirection)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Card.CardId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CardCommentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CardCommentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CardCommentId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.SavedSpreadId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SavedSpreadId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SavedSpreadId">Delete</a>
             </td>
         </tr>
 }

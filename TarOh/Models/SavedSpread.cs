@@ -17,6 +17,8 @@ namespace TarOh.Models
 
         public int OrdinalId { get; set; }
 
+        public bool CardDirection { get; set; }
+
         public OrdinalPosition OrdinalPosition { get; set; }
 
         public Card Card { get; set; }

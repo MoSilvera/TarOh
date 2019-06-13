@@ -23,6 +23,8 @@ namespace TarOh.Models
 
         public int DeckId { get; set; }
 
+        public bool CardDirection { get; set; }
+
         public CardType CardType { get; set; }
 
         public List<CardComment> CardComments {get; set;}

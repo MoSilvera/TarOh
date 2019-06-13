@@ -1,0 +1,36 @@
+﻿@model TarOh.Models.SavedSpread
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SavedSpread</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrdinalId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrdinalId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CardDirection)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CardDirection)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Card)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Card.CardId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SavedSpreadId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

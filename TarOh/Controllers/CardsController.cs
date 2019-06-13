@@ -25,7 +25,7 @@ namespace TarOh.Controllers
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        public async Task <IActionResult> Reading(int deckId)
+        public async Task<IActionResult> Reading(int deckId)
         {
             var user = await GetCurrentUserAsync();
             var applicationDbContext = _context.Card.Include(c => c.CardType);
@@ -33,30 +33,66 @@ namespace TarOh.Controllers
             var randomizedList = from item in applicationDbContext
                                  orderby rand.Next()
                                  select item;
-            List<Reading> readingViewModelList = new List<Reading>(); 
+            List<Reading> readingViewModelList = new List<Reading>();
 
             Reading readingViewModel = new Reading()
-            {
-                Cards = await randomizedList.Take(11).ToListAsync(),
-                OrdinalPositions = await _context.OrdinalPosition.ToListAsync(),
-                OrdinalComments = await _context.OrdinalComment.ToListAsync(),
-                CardComments = await _context.CardComment.Where(cc => cc.Card.DeckId == deckId && cc.User.Id == user.Id ).ToListAsync()
-            };
-            readingViewModelList.Add(readingViewModel);
+                {
+                    Cards = await randomizedList.Take(11).ToListAsync(),
+                    OrdinalPositions = await _context.OrdinalPosition.ToListAsync(),
+                    OrdinalComments = await _context.OrdinalComment.ToListAsync(),
+                    CardComments = await _context.CardComment.Where(cc => cc.Card.DeckId == deckId && cc.User.Id == user.Id).ToListAsync()
+                };
 
-            return View(readingViewModelList.AsEnumerable());
-        }
+            Spread dummySpread = new Spread()
+                {
+                    Name = null,
+                    UserId = user.Id
+                  };
+
+                _context.Add(dummySpread);
+                await _context.SaveChangesAsync();
+
+
+                int count = 0;
+                foreach (var card in readingViewModel.Cards)
+                {   
+                
+                    Random rnd = new Random();
+                    int cardDirection = rnd.Next(1, 3);
+
+                if (cardDirection % 2 == 0)
+                    {
+                        card.CardDirection = true;
+                    }
+                    else
+                    {
+                        card.CardDirection = false;
+                    }
+                    SavedSpread dummySavedSpread = new SavedSpread()
+                    {
+                        SpreadId = dummySpread.SpreadId,
+                        CardId = card.CardId,
+                        OrdinalId = count + 1,
+                        CardDirection = card.CardDirection,
+                    };
+                    _context.Add(dummySavedSpread);
+                    await _context.SaveChangesAsync();
+
+                    count++;
+                }
+
+
+                readingViewModelList.Add(readingViewModel);
+
+                return View(readingViewModelList.AsEnumerable());
+            }
 
         // GET: Cards
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Card.Include(c => c.CardType);
-            Random rand = new Random();
-            var randomizedList = from item in applicationDbContext
-                                 orderby rand.Next()
-                                 select item;
-
-            return View(await randomizedList.Take(11).ToListAsync());
+            
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Cards/Details/5
