@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TarOh.Data;
 
 namespace TarOh.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190613164906_changin column name")]
+    partial class changincolumnname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -320,7 +322,11 @@ namespace TarOh.Migrations
 
                     b.Property<int>("CardId");
 
-                    b.Property<int>("OrdinalPositionId");
+                    b.Property<int>("OrdinalId")
+                        .HasColumnName("OrdinalPositionId");
+
+                    b.Property<int?>("OrdinalPositionId")
+                        .HasColumnName("SavedSpread_OrdinalPositionId");
 
                     b.Property<int>("SpreadId");
 
@@ -482,8 +488,7 @@ namespace TarOh.Migrations
 
                     b.HasOne("TarOh.Models.OrdinalPosition", "OrdinalPosition")
                         .WithMany("SavedSpreads")
-                        .HasForeignKey("OrdinalPositionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrdinalPositionId");
 
                     b.HasOne("TarOh.Models.Spread", "Spread")
                         .WithMany("SavedSpreads")

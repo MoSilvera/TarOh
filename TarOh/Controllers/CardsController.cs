@@ -55,8 +55,8 @@ namespace TarOh.Controllers
 
                 int count = 0;
                 foreach (var card in readingViewModel.Cards)
-                {   
-                
+                {
+                    int ordinalId = count + 1;
                     Random rnd = new Random();
                     int cardDirection = rnd.Next(1, 3);
 
@@ -72,7 +72,7 @@ namespace TarOh.Controllers
                     {
                         SpreadId = dummySpread.SpreadId,
                         CardId = card.CardId,
-                        OrdinalId = count + 1,
+                        OrdinalPositionId = ordinalId,
                         CardDirection = card.CardDirection,
                     };
                     _context.Add(dummySavedSpread);
