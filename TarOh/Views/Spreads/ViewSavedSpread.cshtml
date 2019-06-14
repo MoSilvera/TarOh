@@ -32,8 +32,8 @@
                 Ordinal Position: @savedSpread.OrdinalPosition.Name
             </p>
         }
-        <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@savedSpread.Card.CardId">My Card Comments</a> <div>||</div>
-        <a target="_blank" asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@savedSpread.OrdinalPositionId">My Ordinal Comments</a>
+        <a asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@savedSpread.Card.CardId">My Card Comments</a> <div>||</div>
+        <a asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@savedSpread.OrdinalPositionId">My Ordinal Comments</a>
 
     }
 

@@ -1,47 +1,55 @@
-﻿@model IEnumerable<TarOh.Models.CardComment>
+﻿@model IEnumerable<TarOh.Models.ViewModels.CardCommentWithId>
 
 @{
     ViewData["Title"] = "GetUserCardComments";
 }
+@{int? correctid = 0;}
+<h1>My Card Comments</h1>
 
-<h1>GetUserCardComments</h1>
 
+@foreach (var item in Model)
+{
+    correctid = item.CardId;
+
+
+    <h2>@item.CardType.Name</h2>
+
+}
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-id="@correctid">Add Comment</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Comment)
+                Comment
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Card)
-            </th>
+
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Card.CardId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CardCommentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CardCommentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CardCommentId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+
+
+            @foreach (var cardcomment in item.CardComments)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => cardcomment.Comment)
+                    </td>
+
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@cardcomment.CardCommentId">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@cardcomment.CardCommentId">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        }
+
     </tbody>
 </table>

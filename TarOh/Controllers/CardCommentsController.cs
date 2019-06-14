@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TarOh.Data;
 using TarOh.Models;
+using TarOh.Models.ViewModels;
 
 namespace TarOh.Controllers
 {
@@ -53,13 +54,30 @@ namespace TarOh.Controllers
 
         public  async Task<IActionResult> GetUserCardComments( int? id)
         {
+            Card card = _context.Card.Where(c => c.CardId == id).Last();
+            int cardTypeId = card.CardTypeId;
             var user = await GetCurrentUserAsync();
-            var applicationDbContext = _context.CardComment
-                .Include(c => c.Card)
-                .Include(c => c.User)
-                .Where(c => c.CardId == id && c.User.Id == user.Id);
+            List<CardCommentWithId> viewModelList = new List<CardCommentWithId>();
 
-            return View(await applicationDbContext.ToListAsync());
+            CardCommentWithId CardCommentDataViewModel = new CardCommentWithId
+            {
+                CardComments = await _context.CardComment
+                .Include(cc => cc.Card)
+                .ThenInclude(c => c.CardType)
+                .Include(cc => cc.User)
+                .Where(cc => cc.CardId == id && cc.User.Id == user.Id).ToListAsync(),
+                CardId = id,
+                Card = _context.Card.Where(c => c.CardId == id).Last(),
+                CardType = _context.CardType.Where(ct => ct.CardTypeId == cardTypeId ).Last()
+
+
+            };
+            viewModelList.Add(CardCommentDataViewModel);
+
+
+
+            return View(viewModelList.AsEnumerable());
+            
         }
 
         // GET: CardComments/Create
@@ -75,16 +93,18 @@ namespace TarOh.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CardCommentId,CardId,UserId,Comment")] CardComment cardComment)
+        public async Task<IActionResult> Create([Bind("CardCommentId,CardId,UserId,Comment")] CardComment cardComment, int id)
         {
+            var user = await GetCurrentUserAsync();
+            cardComment.CardId = id;
+            cardComment.UserId = user.Id;
             if (ModelState.IsValid)
             {
                 _context.Add(cardComment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetUserCardComments", new { id = id });
             }
-            ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", cardComment.CardId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", cardComment.UserId);
+            
             return View(cardComment);
         }
 

@@ -30,13 +30,16 @@ namespace TarOh.Controllers
         {
             var user = await GetCurrentUserAsync();
             List<OrdinalCommentWithId> viewModelList = new List<OrdinalCommentWithId>();
+
             OrdinalCommentWithId ordinalCommentDataViewModel = new OrdinalCommentWithId
             {
                 OrdinalComments = await _context.OrdinalComment
                 .Include(o => o.OrdinalPosition)
                 .Include(o => o.User)
                 .Where(o => o.OrdinalPositionId == id && o.User.Id == user.Id).ToListAsync(),
-                OrdinalId = id
+                OrdinalPositionId = id,
+                OrdinalPosition = _context.OrdinalPosition.Where(op => op.OrdinalPositionId == id).Last()
+               
 
             };
             viewModelList.Add(ordinalCommentDataViewModel);
@@ -45,12 +48,7 @@ namespace TarOh.Controllers
 
             return View( viewModelList.AsEnumerable());
         }
-        // GET: OrdinalComments
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.OrdinalComment.Include(o => o.OrdinalPosition).Include(o => o.User);
-            return View(await applicationDbContext.ToListAsync());
-        }
+      
 
         // GET: OrdinalComments/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -149,7 +147,7 @@ namespace TarOh.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetUserOrdinalComments", new { id = ordinalComment.OrdinalPositionId });
             }
             ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", ordinalComment.OrdinalPositionId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ordinalComment.UserId);
@@ -184,7 +182,7 @@ namespace TarOh.Controllers
             var ordinalComment = await _context.OrdinalComment.FindAsync(id);
             _context.OrdinalComment.Remove(ordinalComment);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("GetUserOrdinalComments", new { id = ordinalComment.OrdinalPositionId });
         }
 
         private bool OrdinalCommentExists(int id)

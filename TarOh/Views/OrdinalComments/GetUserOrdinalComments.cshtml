@@ -5,10 +5,16 @@
 }
 @{int? correctid = 0;}
 <h1>My Ordinal Comments</h1>
+
+
 @foreach (var item in Model)
 {
-    correctid = item.OrdinalId;
-}
+    correctid = item.OrdinalPositionId;
+
+    
+        <h2>@item.OrdinalPosition.Name</h2>
+        
+    }
 <p>
    <a asp-action="Create" asp-route-id="@correctid">Add Comment</a>
 </p>
