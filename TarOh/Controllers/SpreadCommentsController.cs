@@ -112,7 +112,7 @@ namespace TarOh.Controllers
         {
             var user = await GetCurrentUserAsync();
             spreadComment.UserId = user.Id;
-            spreadComment.SpreadId = _context.SpreadComment.FirstOrDefault(sc => sc.UserId == user.Id && spreadComment.SpreadCommentId == id).SpreadId;
+            spreadComment.SpreadId = _context.SpreadComment.AsNoTracking().Where(sc => sc.UserId == user.Id && sc.SpreadCommentId == id).SingleOrDefault().SpreadId;
             if (id != spreadComment.SpreadCommentId)
             {
                 return NotFound();
@@ -136,7 +136,7 @@ namespace TarOh.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("GetUserSpreadComments", new { id = id });
+                return RedirectToAction("GetUserSpreadComments", new { id = spreadComment.SpreadId });
             }
            
             return View(spreadComment);
@@ -170,7 +170,7 @@ namespace TarOh.Controllers
             var spreadComment = await _context.SpreadComment.FindAsync(id);
             _context.SpreadComment.Remove(spreadComment);
             await _context.SaveChangesAsync();
-            return RedirectToAction("GetUserOrdinalComments", new { id = spreadComment.SpreadId});
+            return RedirectToAction("GetUserSpreadComments", new { id = spreadComment.SpreadId});
         }
 
         private bool SpreadCommentExists(int id)

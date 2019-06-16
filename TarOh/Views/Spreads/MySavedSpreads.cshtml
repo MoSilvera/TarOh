@@ -4,7 +4,7 @@
     ViewData["Title"] = "MySavedSpreads";
 }
 
-<h1>MySavedSpreads</h1>
+<h1>@Model.FirstOrDefault().User.FirstName's Spreads</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
