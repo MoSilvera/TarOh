@@ -81,7 +81,7 @@ namespace TarOh.Controllers
                     count++;
                 }
 
-
+            readingViewModel.SpreadId = dummySpread.SpreadId;
                 readingViewModelList.Add(readingViewModel);
 
                 return View(readingViewModelList.AsEnumerable());

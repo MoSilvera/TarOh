@@ -111,6 +111,7 @@ namespace TarOh.Controllers
         // GET: CardComments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();
@@ -121,8 +122,8 @@ namespace TarOh.Controllers
             {
                 return NotFound();
             }
-            ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", cardComment.CardId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", cardComment.UserId);
+           
+
             return View(cardComment);
         }
 
@@ -131,12 +132,19 @@ namespace TarOh.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CardCommentId,CardId,UserId,Comment")] CardComment cardComment)
-        {
+        public async Task<IActionResult> Edit(int id, [Bind("CardCommentId, Comment, UserId, CardId")] CardComment cardComment)
+        {   var user = await GetCurrentUserAsync();
+            cardComment.UserId = user.Id;
+            cardComment.CardId = _context.CardComment.AsNoTracking().FirstOrDefault(cc => cc.CardCommentId == id).CardId;
+            
+
+
             if (id != cardComment.CardCommentId)
             {
                 return NotFound();
             }
+           
+
 
             if (ModelState.IsValid)
             {
@@ -156,10 +164,9 @@ namespace TarOh.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetUserCardComments", new { id = cardComment.CardId });
             }
-            ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", cardComment.CardId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", cardComment.UserId);
+            
             return View(cardComment);
         }
 
@@ -191,7 +198,7 @@ namespace TarOh.Controllers
             var cardComment = await _context.CardComment.FindAsync(id);
             _context.CardComment.Remove(cardComment);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("GetUserCardComments", new { id = cardComment.CardId });
         }
 
         private bool CardCommentExists(int id)

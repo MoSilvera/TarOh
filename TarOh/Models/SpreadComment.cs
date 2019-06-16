@@ -9,6 +9,16 @@ namespace TarOh.Models
     public class SpreadComment
     {
         [Key]
-        public int OrdinalPositionId { get; set; }
+        public int SpreadCommentId { get; set; }
+
+        public int SpreadId { get; set; }
+
+        public string UserId { get; set; }
+
+        public string Comment { get; set; }
+
+        public ApplicationUser User { get; set; }
+
+        public Spread Spread { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace TarOh.Models.ViewModels
 
         public List<OrdinalComment> OrdinalComments { get; set; }
 
+        public int SpreadId { get; set; }
+
         
     }
 }

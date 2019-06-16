@@ -112,18 +112,20 @@ namespace TarOh.Controllers
             {
                 return NotFound();
             }
-            ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", ordinalComment.OrdinalPositionId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ordinalComment.UserId);
+           
             return View(ordinalComment);
         }
 
         // POST: OrdinalComments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrdinalCommentId,CardId,UserId,Comment")] OrdinalComment ordinalComment)
+        public async Task<IActionResult> Edit(int id, [Bind("OrdinalCommentId,Comment")] OrdinalComment ordinalComment)
         {
+            var user = await GetCurrentUserAsync();
+            ordinalComment.UserId = user.Id;
+            ordinalComment.OrdinalPositionId = _context.OrdinalComment.AsNoTracking().FirstOrDefault(oc => oc.OrdinalCommentId == id).OrdinalPositionId;
             if (id != ordinalComment.OrdinalCommentId)
             {
                 return NotFound();

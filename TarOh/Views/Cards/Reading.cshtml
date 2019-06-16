@@ -4,6 +4,7 @@
 }
 
 <h1>Reading</h1>
+<a target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId">Spread Comments</a>
 
 @foreach (var item in Model)
 {
