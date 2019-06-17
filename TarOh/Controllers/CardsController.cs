@@ -10,6 +10,8 @@ using TarOh.Models;
 using TarOh.Models.ViewModels;
 using TarOh.Controllers;
 using Microsoft.AspNetCore.Identity;
+using System.Web; 
+
 
 namespace TarOh.Controllers
 {
@@ -25,8 +27,14 @@ namespace TarOh.Controllers
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        public async Task<IActionResult> Reading(int deckId)
+        public IActionResult SpreadName()
         {
+            return View(); 
+        }
+
+        public async Task<IActionResult> Reading(int deckId, string name)
+        {
+            
             var user = await GetCurrentUserAsync();
             var applicationDbContext = _context.Card.Include(c => c.CardType);
             Random rand = new Random();
@@ -45,7 +53,7 @@ namespace TarOh.Controllers
 
             Spread dummySpread = new Spread()
                 {
-                    Name = null,
+                    Name = name,
                     UserId = user.Id
                   };
 

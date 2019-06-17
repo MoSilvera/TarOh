@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Reading";
 }
-
 <h1>Reading</h1>
 <a target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId">Spread Comments</a>
 
@@ -13,34 +12,34 @@
 
     foreach (var card in item.Cards)
     {
-        
+
 
         if (card.CardDirection == true)
         {
             <p>
                 Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
                 Definition: @Html.DisplayFor(modelItem => card.UpDefinition) ||
-                
+
                 <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@card.CardId">My Comments</a>
-               
+
 
 
             </p>
-            
+
         }
         else
         {
-       
+
             <p>
                 Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
                 Definition: @Html.DisplayFor(modelItem => card.DownDefinition) ||
-                
+
                 <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@card.CardId">My Comments</a>
 
             </p>
-                
-                
-            
+
+
+
         }
 
     }
@@ -58,7 +57,7 @@
             <a target="_blank" asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@ordinalPosition.OrdinalPositionId">My Comments</a>
 
         </p>
-        
+
     }
 }
 
