@@ -55,10 +55,18 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 /* Reading/Spread Styles */
-.card-face{
+.card-face {
     width: 7rem;
     margin: 30px, 30px, 30px, 30px;
-    justify-content:center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: white;
+}
+
+.card-face:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
 .reading-container{
@@ -101,13 +109,14 @@ body {
     position:relative;
     left: 30%;
     top: 30%;
-    z-index:-1; 
+    z-index: 1; 
 }
 
 #card-1{
     position: relative;
     left: 30%;
     top: 4%;
+    z-index: 2;
    
 }
 
@@ -116,7 +125,7 @@ body {
     left: 30%;
     bottom: 25%;
     transform: rotate(90deg);
-    z-index: 2;
+    z-index: 3;
 }
 
 .invert {
