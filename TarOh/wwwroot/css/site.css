@@ -64,6 +64,7 @@ body {
 .reading-container{
     display: flex;
     flex-direction: row;
+    margin-top: -120px;
     
 }
 .left-reading-container{
@@ -80,7 +81,13 @@ body {
     
     display: flex;
     flex-direction: column-reverse;
-    justify-content: space-between;
+    justify-content: center;
+    
+}
+
+.card-column-right {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #card-0{
@@ -105,6 +112,10 @@ body {
     z-index: 2;
 }
 
+.invert {
+    transform: rotate(180deg);
+}
+
 .right-reading-card-holder img {
     position: relative;
     left: 30%;
@@ -115,7 +126,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 30%;
-    transform:translateY(100px);
+    transform:translateY(150px);
     
 }
 .middle-left-container {
@@ -129,7 +140,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 30%;
-    transform: translateY(-100px);
+    transform: translateY(-150px);
 }
 .middle-middle-left {
     display: flex;
