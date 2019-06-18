@@ -4,60 +4,130 @@
 }
 <h1>Reading</h1>
 <a target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId">Spread Comments</a>
+<div class="reading-container">
 
-@foreach (var item in Model)
-{
+    <div class="left-reading-container">
+        <div class="top-left-container"> @foreach(var item in Model){
+            @for (int i = 4; i < 5; i++)
+            {
+                <img class=" card-face" src="/img/@item.Cards[i].ImagePath"/>
+            }}
+        </div>
+
+    <div class="middle-left-container">
+            <div class="middle-middle-left">
+                @foreach(var item in Model)
+                    {
+                           @for (int i = 6; i < 7; i++)
+                             {
+                                <img class=" card-face" src="/img/@item.Cards[i].ImagePath"/>
+                                }
+                    }
+            </div>
+            <div class="middle-middle-middle">
+                    @foreach (var item in Model)
+                    {
+                        @for (int i = 0; i < 3; i++)
+                        {
+                            <img id="card-@i" class=" card-face"  src="/img/@item.Cards[i].ImagePath" />
+                        }
+                    }
+                </div>
+            <div class="middle-middle-right">
+                @foreach (var item in Model)
+                {
+                    @for (int i = 5; i <6; i++)
+                    {
+                        <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                    }
+                }
+                    </div>
+        </div>
+    <div class="bottom-left-container">
+            @foreach (var item in Model)
+                {
+                    @for (int i = 3; i < 4; i++)
+                    {
+                        <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                    }
+                }
+    </div>
+    </div>
+    <div class="right-reading-container">
+        @foreach (var item in Model)
+        {
+            @for (int i = 7; i < 11; i++)
+            {
+                <div class="right-reading-card-holder"><img class=" card-face" src="/img/@item.Cards[i].ImagePath" /></div>
+            }} 
+    </div>
 
 
 
-    foreach (var card in item.Cards)
+    @*@foreach (var item in Model)
     {
 
 
-        if (card.CardDirection == true)
-        {
+            @for (int i = 0; i < item.Cards.Count; i++)
+            {
+
+
+                    if (item.Cards[i].CardDirection == true)
+                    {
+                        <span class="card">
+                            <span class="card-@i">
+                                 <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                                Card: @Html.DisplayFor(modelItem => item.Cards[i].CardType.Name) ||
+                                Definition: @Html.DisplayFor(modelItem => item.Cards[i].UpDefinition) ||
+
+                                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@item.Cards[i].CardId">My Comments</a>
+                                @i
+                            </span>
+
+
+
+
+                        </span>
+
+                    }
+                    else
+                    {
+
+                        <span class="card">
+                            <span class="card-@i">
+                                <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                                Card: @Html.DisplayFor(modelItem => item.Cards[i].CardType.Name) ||
+                                Definition: @Html.DisplayFor(modelItem => item.Cards[i].DownDefinition) ||
+
+                                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@item.Cards[i].CardId">My Comments</a>
+                                @i
+                            </span>
+
+                    
+
+                        </span>
+
+
+
+                    }
+
+                }
+            
+
+
+
+
+            foreach (var ordinalPosition in item.OrdinalPositions)
+            {
+            <div>.....ORDINAL POSITION.....</div>
             <p>
-                Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
-                Definition: @Html.DisplayFor(modelItem => card.UpDefinition) ||
-
-                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@card.CardId">My Comments</a>
-
-
+                Position: @Html.DisplayFor(modelItem => ordinalPosition.Name) ||
+                Definition: @Html.DisplayFor(modelItem => ordinalPosition.Definition)
+                <a target="_blank" asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@ordinalPosition.OrdinalPositionId">My Comments</a>
 
             </p>
 
         }
-        else
-        {
+    }*@
 
-            <p>
-                Card: @Html.DisplayFor(modelItem => card.CardType.Name) ||
-                Definition: @Html.DisplayFor(modelItem => card.DownDefinition) ||
-
-                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@card.CardId">My Comments</a>
-
-            </p>
-
-
-
-        }
-
-    }
-
-
-
-
-
-    foreach (var ordinalPosition in item.OrdinalPositions)
-    {
-        <div>.....ORDINAL POSITION.....</div>
-        <p>
-            Position: @Html.DisplayFor(modelItem => ordinalPosition.Name) ||
-            Definition: @Html.DisplayFor(modelItem => ordinalPosition.Definition)
-            <a target="_blank" asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@ordinalPosition.OrdinalPositionId">My Comments</a>
-
-        </p>
-
-    }
-}
-
+</div>

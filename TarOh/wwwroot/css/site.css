@@ -54,3 +54,194 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+/* Reading/Spread Styles */
+.card-face{
+    width: 6rem;
+    margin: 30px, 30px, 30px, 30px;
+    justify-content:center;
+}
+
+.reading-container{
+    display: flex;
+    flex-direction: row;
+    border: solid 1px red;
+}
+.left-reading-container{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: solid 1px blue;
+}
+.right-reading-container {
+    width: 30%;
+    min-height: 100%;
+    max-height: 100%;
+    border: solid 1px green;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+}
+
+#card-0{
+    position:relative;
+    left: 30%;
+    top: 30%;
+    z-index:-1; 
+}
+
+#card-1{
+    position: relative;
+    left: 30%;
+    top: 4%;
+   
+}
+
+#card-2 {
+    transform: rotate('180deg');
+    z-index: 2;
+}
+
+.right-reading-card-holder img {
+    position: relative;
+    left: 30%;
+}
+
+.top-left-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33%;
+    border: solid 1px purple;
+}
+.middle-left-container {
+    height: 33%;
+    display: flex;
+    flex-direction:row;
+    border: solid 1px yellow;
+}
+.bottom-left-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33%;
+    border: solid 1px purple;
+}
+.middle-middle-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    border: solid 1px purple;
+}
+.middle-middle-middle{
+    border: dashed 1px blue;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+
+}
+.middle-middle-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    border: solid 1px purple;
+}
+
+
+
+
+
+
+
+
+/*.reading-container{
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
+    grid-template-rows:100px 100px 100px 100px 100px;
+    grid-gap: 20px
+}
+.card-0 {
+    border: solid 1px red;
+    grid-column-start: 4;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+  
+    
+    
+}
+.card-1 {
+    border: solid 1px orange;
+    grid-column-start: 4;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+}
+.card-2 {
+    border: solid 1px yellow;
+    grid-column-start: 4;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+}
+.card-3 {
+    border: solid 1px green;
+    grid-column-start: 4;
+    grid-column-end: span 1;
+    grid-row-start: 5;
+    grid-column-end: span 1;
+}
+.card-4 {
+    border: solid 1px blue;
+    grid-column-start: 4;
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    grid-column-end: span 1;
+}
+.card-5 {
+    border: solid 1px violet;
+    grid-column-start: 6;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+}
+.card-6 {
+    border: solid 1px red;
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    grid-row-start: 3;
+    grid-column-end: span 1;
+}
+.card-7 {
+    border: solid 1px orange;
+    grid-column-start: 7;
+    grid-column-end: span 1;
+    grid-row-start: 5;
+    grid-column-end: span 1;
+    
+    
+}
+.card-8 {
+    border: solid 1px yellow;
+    grid-column-start: 7;
+    grid-column-end: span 1;
+    grid-row-start: 4;
+    grid-column-end: span 1;
+   
+}
+.card-9 {
+    border: solid 1px green;
+    grid-column-start: 7;
+    grid-column-end: span 1;
+    grid-row-start: 2;
+    grid-column-end: span 1;
+}
+.card-10 {
+    border: solid 1px blue;
+    grid-column-start: 7;
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    grid-column-end: span 1;
+}*/
