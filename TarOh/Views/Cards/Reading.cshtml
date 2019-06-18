@@ -3,12 +3,12 @@
     ViewData["Title"] = "Reading";
 }
 <h1>Reading</h1>
-<a target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId">Spread Comments</a>
+<a target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId" class="spreadCommentLink">Spread Comments</a>
 <div class="reading-container">
 
     <div class="left-reading-container">
         <div class="top-left-container"> @foreach(var item in Model){
-            @for (int i = 4; i < 5; i++)
+            @for (int i = 3; i < 4; i++)
             {
                 if (item.Cards[i].CardDirection == true)
                 {
@@ -75,7 +75,7 @@
     <div class="bottom-left-container">
             @foreach (var item in Model)
                 {
-                    @for (int i = 3; i < 4; i++)
+                    @for (int i = 4; i < 5; i++)
                     {
                            if (item.Cards[i].CardDirection == true)
                                 {
