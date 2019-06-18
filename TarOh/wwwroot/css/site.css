@@ -44,6 +44,9 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-image: url(/img/Wood-Grain-Background-1.jpg);
+  background-position: center;
+  
 }
 .footer {
   position: absolute;
@@ -63,11 +66,14 @@ body {
     border-radius: 4px;
     padding: 5px;
     background-color: white;
+    transition: 0.2s;
 }
 
-.card-face:hover {
-    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-}
+    .card-face:hover {
+        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        transform: scale(1.5);
+        z-index: 100 !important;
+    }
 
 .reading-container{
     display: flex;
@@ -128,6 +134,10 @@ body {
     z-index: 3;
 }
 
+    #card-2:hover {
+        transform: scale(1.5);
+    }
+
 .invert {
     transform: rotate(180deg);
 }
@@ -142,7 +152,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 30%;
-    transform:translateY(150px);
+    transform:translateY(140px);
     
 }
 .middle-left-container {
@@ -156,7 +166,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 30%;
-    transform: translateY(-150px);
+    transform: translateY(-135px);
 }
 .middle-middle-left {
     display: flex;
