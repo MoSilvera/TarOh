@@ -33,7 +33,7 @@ namespace TarOh.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.Spread
+            var applicationDbContext = _context.Spread.Include(s => s.SavedSpreads)
                 .Include(s => s.User)
                 .Where(s => s.UserId == user.Id);
             
@@ -177,10 +177,11 @@ namespace TarOh.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var user = GetCurrentUserAsync();
             var spread = await _context.Spread.FindAsync(id);
             _context.Spread.Remove(spread);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("MySavedSpreads", new {id = user.Id });
         }
 
         private bool SpreadExists(int id)
