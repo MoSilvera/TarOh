@@ -2,8 +2,11 @@
 @{
     ViewData["Title"] = "Reading";
 }
-<h1>Reading</h1>
-<a target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId" class="spreadCommentLink">Spread Comments</a>
+    <div class="titleDiv">
+        <div class="titleInner"><h1>Reading</h1></div>
+        <div class="titleInner"><a type="button" target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId" class="btn btn-secondary spreadCommentLink">Spread Comments</a></div>
+
+    </div>
 <div class="reading-container">
 
     <div class="left-reading-container">

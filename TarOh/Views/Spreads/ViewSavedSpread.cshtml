@@ -3,8 +3,10 @@
 @{
     ViewData["Title"] = "ViewSavedSpread";
 }
-    <h1>@Model.First().SavedSpreads.First().Spread.Name</h1>
-    <a asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.First().SavedSpreads.First().SpreadId" class="spreadCommentLink">My Spread Comments</a>
+    <div class="titleDiv">
+        <div class="titleInner"><h1>@Model.First().SavedSpreads.First().Spread.Name</h1></div>
+        <div class="commentLink titleInner"><a  type="button" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.First().SavedSpreads.First().SpreadId" class="spreadCommentLink btn btn-secondary">Spread Comments</a></div>
+        </div>
 
 
 <div class="reading-container">
