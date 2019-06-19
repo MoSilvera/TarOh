@@ -350,6 +350,7 @@ body {
 {
     display: flex;
     flex-direction: row-reverse;
+    flex-wrap: wrap;
     justify-content: center;
     justify-content: space-between;
     padding: 30px;
