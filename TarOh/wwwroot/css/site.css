@@ -57,6 +57,7 @@ body {
   background-image: url(/img/Wood-Grain-Background-1.jpg);
   background-position: center;
   
+  
 }
 .footer {
   position: absolute;
@@ -84,6 +85,17 @@ body {
         transform: scale(1.5);
         z-index: 100 !important;
     }
+
+.card-modal-face {
+    width: 12rem;
+    margin: 30px, 30px, 30px, 30px;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: white;
+    
+}
 
 .reading-container{
     display: flex;
@@ -346,6 +358,8 @@ body {
     flex-direction:column;
 
 }
+
+
 .mySpreads
 {
     display: flex;
@@ -390,3 +404,27 @@ body {
         display: flex;
         flex-flow: column;
     }
+
+    .innerbody{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid blue;
+    }
+
+    
+    .innerbody-right{
+        display: flex;
+        flex-direction: column;
+        border: 1px solid red;
+    }
+
+    .innerbody-left{
+        border: 1px solid purple;
+        margin: 30px;
+    }
+
+/*.modal-lg {
+    transform: translate(0, 45%);
+    top: 50%;
+    margin: 0 auto;
+}*/

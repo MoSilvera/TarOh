@@ -11,12 +11,12 @@
     <div class="display">
         <div class="card-container">
             <div class="card">
-                <div class="side cardz"><img class="" src="~/img/card_back_black.png" alt="Jimmy Eat World"></div>
+                <div class="side cardz"><img class="" src="~/img/card_back_black.png" alt="Playing Card"></div>
                 <div class="side back"><a asp-action="ViewSavedSpread" asp-route-id="@item.SpreadId">@item.Name</a> <span>@item.ReadingDate</span></div>
             </div>
 
         </div>
-        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SpreadId">Delete</a>
+        <form asp-action="Delete" asp-controller="Spreads" asp-route-id="@item.SpreadId"><button type="submit" class="btn btn-danger">Delete</button></form>
     </div>
     }
 </div>

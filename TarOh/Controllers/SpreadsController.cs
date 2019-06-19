@@ -154,28 +154,28 @@ namespace TarOh.Controllers
         }
 
         // GET: Spreads/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var spread = await _context.Spread
-                .Include(s => s.User)
-                .FirstOrDefaultAsync(m => m.SpreadId == id);
-            if (spread == null)
-            {
-                return NotFound();
-            }
+        //    var spread = await _context.Spread
+        //        .Include(s => s.User)
+        //        .FirstOrDefaultAsync(m => m.SpreadId == id);
+        //    if (spread == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(spread);
-        }
+        //    return View(spread);
+        //}
 
         // POST: Spreads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var user = GetCurrentUserAsync();
             var spread = await _context.Spread.FindAsync(id);
