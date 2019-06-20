@@ -84,7 +84,7 @@
                                             
                                         </p>
                                         <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="CardComments" asp-action="Create" asp-route-id="@item.SavedSpreads[q].CardId">Add Card Comments</a>
-                                        <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="OrdinalComments" asp-action="Create" asp-route-id="@item.SavedSpreads[q].OrdinalPositionId">Add Ordinal Comments</a>
+                                        <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="OrdinalComments" asp-action="Create" asp-route-id="@fish">Add Ordinal Comments</a>
 
                                     </div>
                                 }
@@ -161,20 +161,20 @@
                     {
                         if (savedSpread.OrdinalPositionId == 1)
                         {
-                            <img id="card-0" data-toggle="modal" data-target="#default-1" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
+                            <img id="card-0-0" data-toggle="modal" data-target="#default-1" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
 
                         }
                         else if (savedSpread.OrdinalPositionId == 2 && savedSpread.CardDirection == false)
                         {
-                            <img id="card-1" data-toggle="modal" data-target="#default-2" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
+                            <img id="card-1-1" data-toggle="modal" data-target="#default-2" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
                         }
                         else if (savedSpread.OrdinalPositionId == 2 && savedSpread.CardDirection == true)
                         {
-                            <img id="card-1" data-toggle="modal" data-target="#default-2" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
+                            <img id="card-1-1" data-toggle="modal" data-target="#default-2" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
                         }
                         else if (savedSpread.OrdinalPositionId == 3)
                         {
-                            <img id="card-2" data-toggle="modal" data-target="#default-3" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
+                            <img id="card-2-2" data-toggle="modal" data-target="#default-3" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
                         }
 
                     }
