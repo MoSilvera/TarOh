@@ -157,29 +157,12 @@ namespace TarOh.Controllers
         }
 
         // GET: OrdinalComments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ordinalComment = await _context.OrdinalComment
-                .Include(o => o.OrdinalPosition)
-                .Include(o => o.User)
-                .FirstOrDefaultAsync(m => m.OrdinalCommentId == id);
-            if (ordinalComment == null)
-            {
-                return NotFound();
-            }
-
-            return View(ordinalComment);
-        }
+       
 
         // POST: OrdinalComments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var ordinalComment = await _context.OrdinalComment.FindAsync(id);
             _context.OrdinalComment.Remove(ordinalComment);

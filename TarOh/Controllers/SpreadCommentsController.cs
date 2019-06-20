@@ -143,29 +143,12 @@ namespace TarOh.Controllers
         }
 
         // GET: SpreadComments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var spreadComment = await _context.SpreadComment
-                .Include(s => s.Spread)
-                .Include(s => s.User)
-                .FirstOrDefaultAsync(m => m.SpreadCommentId == id);
-            if (spreadComment == null)
-            {
-                return NotFound();
-            }
-
-            return View(spreadComment);
-        }
+     
 
         // POST: SpreadComments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var spreadComment = await _context.SpreadComment.FindAsync(id);
             _context.SpreadComment.Remove(spreadComment);

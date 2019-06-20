@@ -4,52 +4,54 @@
     ViewData["Title"] = "GetUserCardComments";
 }
 @{int? correctid = 0;}
-<h1>My Card Comments</h1>
+    <div class="comments">
+        
 
 
-@foreach (var item in Model)
-{
-    correctid = item.CardId;
-
-
-    <h2>@item.CardType.Name</h2>
-
-}
-<p>
-    <a asp-action="Create" asp-route-id="@correctid">Add Comment</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Comment
-            </th>
-
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
         @foreach (var item in Model)
         {
+            correctid = item.CardId;
 
 
-            @foreach (var cardcomment in item.CardComments)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => cardcomment.Comment)
-                    </td>
-
-
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@cardcomment.CardCommentId">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@cardcomment.CardCommentId">Delete</a>
-                    </td>
-                </tr>
-            }
+            <h1>My Comments: @item.CardType.Name</h1>
 
         }
+        <p>
+            <a asp-action="Create" asp-route-id="@correctid">Add Comment</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Comment
+                    </th>
 
-    </tbody>
-</table>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+
+                    @foreach (var cardcomment in item.CardComments)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => cardcomment.Comment)
+                            </td>
+
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@cardcomment.CardCommentId">Edit</a> |
+                                <<form asp-action="Delete" asp-controller="CardComments" asp-route-id="@cardcomment.CardCommentId" typeof="submit"><button type="submit" @*class="btn btn-danger"*@>Delete</button></form>
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </tbody>
+        </table>
+    </div>

@@ -171,29 +171,12 @@ namespace TarOh.Controllers
         }
 
         // GET: CardComments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var cardComment = await _context.CardComment
-                .Include(c => c.Card)
-                .Include(c => c.User)
-                .FirstOrDefaultAsync(m => m.CardCommentId == id);
-            if (cardComment == null)
-            {
-                return NotFound();
-            }
-
-            return View(cardComment);
-        }
+        
 
         // POST: CardComments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var cardComment = await _context.CardComment.FindAsync(id);
             _context.CardComment.Remove(cardComment);

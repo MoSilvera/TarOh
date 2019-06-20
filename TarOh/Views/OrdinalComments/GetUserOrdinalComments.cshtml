@@ -4,52 +4,54 @@
     ViewData["Title"] = "GetUserOrdinalComments";
 }
 @{int? correctid = 0;}
-<h1>My Ordinal Comments</h1>
-
-
-@foreach (var item in Model)
-{
-    correctid = item.OrdinalPositionId;
-
-    
-        <h2>@item.OrdinalPosition.Name</h2>
+    <div class="comments">
         
-    }
-<p>
-   <a asp-action="Create" asp-route-id="@correctid">Add Comment</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Comment
-            </th>
 
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
         @foreach (var item in Model)
         {
+            correctid = item.OrdinalPositionId;
 
 
-            @foreach (var ordinalcomment in item.OrdinalComments)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => ordinalcomment.Comment)
-                    </td>
-
-
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@ordinalcomment.OrdinalCommentId">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@ordinalcomment.OrdinalCommentId">Delete</a>
-                    </td>
-                </tr>
-            }
+            <h2>My Comments: Position @item.OrdinalPosition.Name</h2>
 
         }
+        <p>
+            <a asp-action="Create" asp-route-id="@correctid">Add Comment</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Comment
+                    </th>
 
-    </tbody>
-</table>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+
+                    @foreach (var ordinalcomment in item.OrdinalComments)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => ordinalcomment.Comment)
+                            </td>
+
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@ordinalcomment.OrdinalCommentId">Edit</a> |
+                                <form asp-action="Delete" asp-controller="OrdinalComments" asp-route-id="@ordinalcomment.OrdinalCommentId" typeof="submit"><button type="submit" @*class="btn btn-danger"*@>Delete</button></form>
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </tbody>
+        </table>
+    </div>

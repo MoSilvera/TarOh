@@ -99,4 +99,18 @@
 #subsubline{
     font-size: 50px;
 }
+
+.comments {
+    margin: 100px;
+    background-color: rgba(225, 225, 225, .7);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.col-md-4 {
+    min-width: 90%;
+    min-height: 30%;
+    /* max-width: 33.333333%; */
+    flex: 90%;
+}
     
