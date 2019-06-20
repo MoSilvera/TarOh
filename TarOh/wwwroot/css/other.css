@@ -79,5 +79,24 @@
     border-radius: 10px;
     /* background: white; */
     margin: 100px;
+    -webkit-animation: fadein 4s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#subline{
+    font-size: 90px;
+}
+
+#subsubline{
+    font-size: 50px;
 }
     
