@@ -1,6 +1,9 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -408,23 +411,20 @@ body {
     .innerbody{
         display: flex;
         flex-direction: row;
-        border: 1px solid blue;
+        
+        font-size: 20px;
     }
 
     
     .innerbody-right{
         display: flex;
         flex-direction: column;
-        border: 1px solid red;
+        
+        padding: 10px;
     }
 
     .innerbody-left{
-        border: 1px solid purple;
+        
         margin: 30px;
     }
 
-/*.modal-lg {
-    transform: translate(0, 45%);
-    top: 50%;
-    margin: 0 auto;
-}*/
