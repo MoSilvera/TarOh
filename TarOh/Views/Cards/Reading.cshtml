@@ -62,6 +62,9 @@
                                             if (cardcomment.CardId == item.Cards[i].CardId)
                                             {
                                                 <div>@cardcomment.Comment</div>
+                                                <span>
+                                                    <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="Edit" asp-route-id="@cardcomment.CardCommentId"><i class="fas fa-edit"></i></a>
+                                                </span>
                                             }
                                         }
                                     </p>
@@ -72,12 +75,12 @@
                                         }
                                         else
                                         {
-                                            <b> Ordinal Position @{i++;}:</b>
+                                            <b> Ordinal Position:</b>
 
                                                 }
                                         @foreach (var op in item.OrdinalPositions)
                                         {
-                                            if (op.OrdinalPositionId == i++)
+                                            if (op.OrdinalPositionId == i)
                                             {
                                                 <span>@op.Definition</span>
                                             }
@@ -150,11 +153,11 @@
                     {
                         if (item.Cards[i].CardDirection == true)
                         {
-                            <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                            <img data-toggle="modal" data-target="#dynamicCard6" class=" card-face " src="/img/@item.Cards[i].ImagePath" />
                         }
                         else
                         {
-                            <img class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
+                            <img data-toggle="modal" data-target="#dynamicCard6" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
                         }
                     }
                 }
@@ -194,11 +197,12 @@
                     {
                         if (item.Cards[i].CardDirection == true)
                         {
-                            <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                            <img data-toggle="modal" data-target="#dynamicCard5" class=" card-face " src="/img/@item.Cards[i].ImagePath" />
                         }
                         else
                         {
-                            <img class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
+                            
+                            <img data-toggle="modal" data-target="#dynamicCard5" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
                         }
                     }
                 }
@@ -211,11 +215,11 @@
                 {
                     if (item.Cards[i].CardDirection == true)
                     {
-                        <img data-toggle="modal" data-target=".bb-example-modal-lg" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                        <img data-toggle="modal" data-target="#dynamicCard4" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
                     }
                     else
                     {
-                        <img data-toggle="modal" data-target=".bb-example-modal-lg" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                        <img data-toggle="modal" data-target="#dynamicCard4" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
                     }
                 }
             }
@@ -226,13 +230,38 @@
         {
             @for (int i = 7; i < 11; i++)
             {
-                if (item.Cards[i].CardDirection == true)
+                if (i == 7 && item.Cards[i].CardDirection == true)
                 {
-                    <img class=" card-face card-column-right" src="/img/@item.Cards[i].ImagePath" />
+
+                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right" src="/img/@item.Cards[i].ImagePath" />
                 }
-                else
+                else if (i == 7 && item.Cards[i].CardDirection == false)
                 {
-                    <img class=" card-face invert card-column-right" src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 8 && item.Cards[i].CardDirection == false)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 8 && item.Cards[i].CardDirection == true)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 9 && item.Cards[i].CardDirection == true)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 9 && item.Cards[i].CardDirection == false)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right invert " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 10 && item.Cards[i].CardDirection == true)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 10 && item.Cards[i].CardDirection == false)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard10" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
                 }
             }}
     </div>

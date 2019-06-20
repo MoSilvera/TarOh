@@ -49,7 +49,11 @@ namespace TarOh.Controllers
                 .ThenInclude(ss => ss.Card)
                 .ThenInclude(ct => ct.CardType)
                 .Include(s => s.SavedSpreads)
+                .ThenInclude(ss => ss.Card)
+                .ThenInclude(ct => ct.CardComments)
+                .Include(s => s.SavedSpreads)
                 .ThenInclude(ss => ss.OrdinalPosition)
+                .ThenInclude(op => op.OrdinalComments)
                 .Where(s => s.SpreadId == id);
 
              return View(await applicationDbContext.ToListAsync());
