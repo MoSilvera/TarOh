@@ -79,9 +79,19 @@
                                                 <b> Ordinal Position:</b>
 
                                             }
+
+                                            <span>@item.SavedSpreads[i].OrdinalPosition.Definition</span>
+                                        <p>
+                                            <b>My Ordinal Comments:</b>
+                                            @foreach (var comment in item.SavedSpreads[i].OrdinalPosition.OrdinalComments)
+                                            {
+                                                <div>@comment.Comment</div>
+                                            }
                                             
-                                                <span>@item.SavedSpreads[i].OrdinalPosition.Definition</span>
-                                            
+
+
+                                        </p>
+
                                         </p>
                                         <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="CardComments" asp-action="Create" asp-route-id="@item.SavedSpreads[q].CardId">Add Card Comments</a>
                                         <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="OrdinalComments" asp-action="Create" asp-route-id="@q">Add Ordinal Comments</a>
