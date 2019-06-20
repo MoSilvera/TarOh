@@ -31,19 +31,53 @@
     left: 30%;
     top: 30%;
     z-index: 1;
+    width: 110px;
 }
+#card-0-0:hover {
+    
+    z-index: 100 !important;
+}
+
 
 #card-1-1 {
     position: relative;
     left: 30%;
-    top: -30%;
+    top: 4%;
     z-index: 2;
+    width: 110px;
+}
+#card-1-1:hover {
+    z-index: 100 !important;
 }
 
 #card-2-2 {
     position: relative;
-    left: 30%;
-    bottom: -3%;
+    left: 29%;
+    bottom: 28%;
     transform: rotate(90deg);
     z-index: 3;
+    height: 193px;
+    width: 110px;
+    transition: 0.2s !important;
 }
+
+    #card-2-2:hover {
+        transform: rotate(90deg);
+    }
+
+.homediv {
+    background-color: rgba(225, 225, 225, .7);
+    height: 500px;
+    font-family: 'Bigelow Rules', cursive;
+    font-size: 150px;
+    /* min-height: 100%; */
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    position: relative;
+    top: -10%;
+    border-radius: 10px;
+    /* background: white; */
+    margin: 100px;
+}
+    
