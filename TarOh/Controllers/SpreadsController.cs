@@ -33,7 +33,7 @@ namespace TarOh.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.Spread
+            var applicationDbContext = _context.Spread.Include(s => s.SavedSpreads)
                 .Include(s => s.User)
                 .Where(s => s.UserId == user.Id);
             
@@ -49,7 +49,11 @@ namespace TarOh.Controllers
                 .ThenInclude(ss => ss.Card)
                 .ThenInclude(ct => ct.CardType)
                 .Include(s => s.SavedSpreads)
+                .ThenInclude(ss => ss.Card)
+                .ThenInclude(ct => ct.CardComments)
+                .Include(s => s.SavedSpreads)
                 .ThenInclude(ss => ss.OrdinalPosition)
+                .ThenInclude(op => op.OrdinalComments)
                 .Where(s => s.SpreadId == id);
 
              return View(await applicationDbContext.ToListAsync());
@@ -154,33 +158,34 @@ namespace TarOh.Controllers
         }
 
         // GET: Spreads/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var spread = await _context.Spread
-                .Include(s => s.User)
-                .FirstOrDefaultAsync(m => m.SpreadId == id);
-            if (spread == null)
-            {
-                return NotFound();
-            }
+        //    var spread = await _context.Spread
+        //        .Include(s => s.User)
+        //        .FirstOrDefaultAsync(m => m.SpreadId == id);
+        //    if (spread == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(spread);
-        }
+        //    return View(spread);
+        //}
 
         // POST: Spreads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            var user = GetCurrentUserAsync();
             var spread = await _context.Spread.FindAsync(id);
             _context.Spread.Remove(spread);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("MySavedSpreads", new {id = user.Id });
         }
 
         private bool SpreadExists(int id)

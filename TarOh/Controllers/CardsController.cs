@@ -47,8 +47,8 @@ namespace TarOh.Controllers
                 {
                     Cards = await randomizedList.Take(11).ToListAsync(),
                     OrdinalPositions = await _context.OrdinalPosition.ToListAsync(),
-                    OrdinalComments = await _context.OrdinalComment.ToListAsync(),
-                    CardComments = await _context.CardComment.Where(cc => cc.Card.DeckId == deckId && cc.User.Id == user.Id).ToListAsync()
+                    OrdinalComments = await _context.OrdinalComment.Where( oc => oc.User.Id == user.Id).ToListAsync(),
+                    CardComments = await _context.CardComment.Where( cc => cc.User.Id == user.Id).ToListAsync()
                 };
 
             Spread dummySpread = new Spread()

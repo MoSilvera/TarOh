@@ -1,6 +1,9 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -40,12 +43,23 @@ html {
   position: relative;
   min-height: 100%;
 }
-
+.titleDiv{
+    display:flex;
+    flex-direction: column;
+    align-content:center;
+    background-color: rgba(225,225,225,.7);
+    width: 250px;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    left: 6%;
+}
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
   background-image: url(/img/Wood-Grain-Background-1.jpg);
   background-position: center;
+  
   
 }
 .footer {
@@ -75,6 +89,17 @@ body {
         z-index: 100 !important;
     }
 
+.card-modal-face {
+    width: 12rem;
+    margin: 30px, 30px, 30px, 30px;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: white;
+    
+}
+
 .reading-container{
     display: flex;
     flex-direction: row;
@@ -83,7 +108,10 @@ body {
     position: relative;
     
 }
-
+.titleInner{
+    display: flex;
+    justify-content: center;
+}
 .spreadCommentLink{
     z-index:5;
     position: relative;
@@ -190,99 +218,209 @@ body {
     
 }
 
+#menuToggle {
+    display: block;
+    position: relative;
+    top: 50px;
+    left: 50px;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+}
 
+    #menuToggle input {
+        display: block;
+        width: 40px;
+        height: 32px;
+        position: absolute;
+        top: -7px;
+        left: -5px;
+        cursor: pointer;
+        opacity: 0; /* hide this */
+        z-index: 2; /* and place it over the hamburger */
+        -webkit-touch-callout: none;
+    }
 
+    /*
+ * Just a quick hamburger
+ */
+    #menuToggle span {
+        display: block;
+        width: 33px;
+        height: 4px;
+        margin-bottom: 5px;
+        position: relative;
+        background: #cdcdcd;
+        border-radius: 3px;
+        z-index: 1;
+        transform-origin: 4px 0px;
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+    }
 
+        #menuToggle span:first-child {
+            transform-origin: 0% 0%;
+        }
 
+        #menuToggle span:nth-last-child(2) {
+            transform-origin: 0% 100%;
+        }
 
+    /* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+    #menuToggle input:checked ~ span {
+        opacity: 1;
+        transform: rotate(45deg) translate(-2px, -1px);
+        background: #232323;
+    }
 
+        /*
+ * hide the middle one.
+ */
+        #menuToggle input:checked ~ span:nth-last-child(3) {
+            opacity: 0;
+            transform: rotate(0deg) scale(0.2, 0.2);
+        }
 
-/*.reading-container{
-    display: grid;
-    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
-    grid-template-rows:100px 100px 100px 100px 100px;
-    grid-gap: 20px
+        /*
+ * Ohyeah and the last one should go the other direction
+ */
+        #menuToggle input:checked ~ span:nth-last-child(2) {
+            transform: rotate(-45deg) translate(0, -1px);
+        }
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu {
+    position: absolute;
+    width: 300px;
+    margin: -100px 0 0 -50px;
+    padding: 50px;
+    padding-top: 125px;
+    background: #ededed;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
-.card-0 {
-    border: solid 1px red;
-    grid-column-start: 4;
-    grid-column-end: span 1;
-    grid-row-start: 3;
-    grid-column-end: span 1;
-  
-    
-    
+
+    #menu li {
+        padding: 10px 0;
+        font-size: 22px;
+    }
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul {
+    transform: none;
 }
-.card-1 {
-    border: solid 1px orange;
-    grid-column-start: 4;
-    grid-column-end: span 1;
-    grid-row-start: 3;
-    grid-column-end: span 1;
+
+.card-container {
+    cursor: pointer;
+    height: 250px;
+    perspective: 600;
+    position: relative;
+    width: 150px;
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    margin: 10px;
 }
-.card-2 {
-    border: solid 1px yellow;
-    grid-column-start: 4;
-    grid-column-end: span 1;
-    grid-row-start: 3;
-    grid-column-end: span 1;
-}
-.card-3 {
-    border: solid 1px green;
-    grid-column-start: 4;
-    grid-column-end: span 1;
-    grid-row-start: 5;
-    grid-column-end: span 1;
-}
-.card-4 {
-    border: solid 1px blue;
-    grid-column-start: 4;
-    grid-column-end: span 1;
-    grid-row-start: 1;
-    grid-column-end: span 1;
-}
-.card-5 {
-    border: solid 1px violet;
-    grid-column-start: 6;
-    grid-column-end: span 1;
-    grid-row-start: 3;
-    grid-column-end: span 1;
-}
-.card-6 {
-    border: solid 1px red;
-    grid-column-start: 2;
-    grid-column-end: span 1;
-    grid-row-start: 3;
-    grid-column-end: span 1;
-}
-.card-7 {
-    border: solid 1px orange;
-    grid-column-start: 7;
-    grid-column-end: span 1;
-    grid-row-start: 5;
-    grid-column-end: span 1;
-    
-    
-}
-.card-8 {
-    border: solid 1px yellow;
-    grid-column-start: 7;
-    grid-column-end: span 1;
-    grid-row-start: 4;
-    grid-column-end: span 1;
+.spreadsTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: rgba(225,225,225,.7);
+    width: 300px;
+    padding: 20px;
+    border-radius: 5px;
    
 }
-.card-9 {
-    border: solid 1px green;
-    grid-column-start: 7;
-    grid-column-end: span 1;
-    grid-row-start: 2;
-    grid-column-end: span 1;
+
+.card {
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all .5s ease-in-out;
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    
 }
-.card-10 {
-    border: solid 1px blue;
-    grid-column-start: 7;
-    grid-column-end: span 1;
-    grid-row-start: 1;
-    grid-column-end: span 1;
-}*/
+
+
+
+.mySpreads
+{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-content: space-between;
+    padding: 30px;
+    
+}
+.cardz {
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all .5s ease-in-out;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .card:hover {
+        transform: rotateY(180deg);
+    }
+
+    .card .side {
+        backface-visibility: hidden;
+        border-radius: 6px;
+        height: 100%;
+        position: absolute;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .card .back {
+        background: #eaeaed;
+        color: black;
+        font-size: 1em;
+        line-height: 150px;
+        text-align: center;
+        transform: rotateY(180deg);
+        display: flex;
+        flex-flow: column;
+    }
+
+    .innerbody{
+        display: flex;
+        flex-direction: row;
+        
+        font-size: 20px;
+    }
+
+    
+    .innerbody-right{
+        display: flex;
+        flex-direction: column;
+        
+        padding: 10px;
+    }
+
+    .innerbody-left{
+        
+        margin: 30px;
+    }
+

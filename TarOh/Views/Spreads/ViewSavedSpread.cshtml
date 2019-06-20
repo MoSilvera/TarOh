@@ -3,72 +3,183 @@
 @{
     ViewData["Title"] = "ViewSavedSpread";
 }
-    <h1>@Model.First().SavedSpreads.First().Spread.Name</h1>
-    <a asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.First().SavedSpreads.First().SpreadId" class="spreadCommentLink">My Spread Comments</a>
+
+@for (int q = 0; q < 11; q++)
+{
+   
+    int fish = q + 1;
+
+
+    <div id="default-@Model.FirstOrDefault().SavedSpreads[q].OrdinalPositionId" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        @foreach (var item in Model)
+                        {
+                            @for (int i = 0; i < 1; i++)
+                            {
+
+                                @item.SavedSpreads[q].Card.CardType.Name
+
+
+                            }
+                        }
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="innerbody">
+                        @foreach (var item in Model)
+                        {
+                            @for (int i = 0; i < 11; i++)
+                            {
+                                if (i == q)
+                                {
+
+
+                                    <div class="innerbody-left">
+                                        <img data-toggle="modal" data-target="#one" class=" card-modal-face" src="/img/@item.SavedSpreads[i].Card.ImagePath" />
+
+                                    </div>
+                                    <div class="innerbody-right">
+                                        <p>
+                                            @if (item.SavedSpreads[i].Card.CardDirection == true)
+                                            {
+                                                <span><b>Meaning:</b> @item.SavedSpreads[i].Card.UpDefinition</span>
+                                            }
+                                            else
+                                            {
+                                                <span><b>Inverse Meaning:</b> @item.SavedSpreads[i].Card.DownDefinition</span>
+                                            }
+                                        </p>
+                                        <p>
+                                            <b>My Card Comments:</b>
+                                            @foreach (var cardcomment in item.SavedSpreads[i].Card.CardComments)
+                                            {
+                                                if (cardcomment.CardId == item.SavedSpreads[i].Card.CardId)
+                                                {
+                                                    <div>@cardcomment.Comment</div>
+                                                    <span>
+                                                        <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="Edit" asp-route-id="@cardcomment.CardCommentId"><i class="fas fa-edit"></i></a>
+                                                    </span>
+                                                }
+                                            }
+                                        </p>
+                                        <p>
+
+                                            @if (i == 0)
+                                            {
+                                                <b> Ordinal Position Signifier:</b>
+                                            }
+                                            else
+                                            {
+                                                <b> Ordinal Position:</b>
+
+                                            }
+                                            
+                                                <span>@item.SavedSpreads[i].OrdinalPosition.Definition</span>
+                                            
+                                        </p>
+                                        <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="CardComments" asp-action="Create" asp-route-id="@item.SavedSpreads[q].CardId">Add Card Comments</a>
+                                        <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="OrdinalComments" asp-action="Create" asp-route-id="@item.SavedSpreads[q].OrdinalPositionId">Add Ordinal Comments</a>
+
+                                    </div>
+                                }
+
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+<div class="titleDiv">
+    <div class="titleInner"><h1>@Model.First().SavedSpreads.First().Spread.Name</h1></div>
+    <div class="commentLink titleInner"><a type="button" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.First().SavedSpreads.First().SpreadId" class="spreadCommentLink btn btn-secondary">Spread Comments</a></div>
+</div>
 
 
 <div class="reading-container">
 
     <div class="left-reading-container">
-        <div class="top-left-container"> @foreach(var item in Model){
-            @foreach (var savedSpread in item.SavedSpreads)
-            {
-                if (savedSpread.OrdinalPositionId == 4 && savedSpread.CardDirection == true)
-                {
-                    <img class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
-                }
-                else if (savedSpread.OrdinalPositionId == 4 && savedSpread.CardDirection == false)
-                {
-                    <img class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
-                }
-
-            }
-        }
-        </div>
-
-    <div class="middle-left-container">
-        <div class="middle-middle-left">
-            @foreach (var item in Model)
-            {
-                @foreach (var savedSpread in item.SavedSpreads)
-            {
-                if (savedSpread.OrdinalPositionId == 7 && savedSpread.CardDirection == true)
-                {
-                    <img class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
-                }
-                else if (savedSpread.OrdinalPositionId == 7 && savedSpread.CardDirection == false)
-                {
-                    <img class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
-                }
-
-            }
-            }
-        </div>
-        <div class="middle-middle-middle">
+        <div class="top-left-container">
             @foreach (var item in Model)
             {
                 @foreach (var savedSpread in item.SavedSpreads)
                 {
-                    if (savedSpread.OrdinalPositionId == 1)
+                    if (savedSpread.OrdinalPositionId == 4 && savedSpread.CardDirection == true)
                     {
-                        <img id="card-0" class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
+
+                        <img data-toggle="modal" data-target="#default-4" class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
                     }
-                    else if (savedSpread.OrdinalPositionId == 2 && savedSpread.CardDirection == false)
+                    else if (savedSpread.OrdinalPositionId == 4 && savedSpread.CardDirection == false)
                     {
-                        <img id="card-1" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
-                    }
-                    else if (savedSpread.OrdinalPositionId == 2 && savedSpread.CardDirection == true)
-                    {
-                        <img id="card-1" class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
-                    }
-                    else if (savedSpread.OrdinalPositionId == 3 )
-                    {
-                        <img id="card-2" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
+                        <img data-toggle="modal" data-target="#default-4" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
+                        
                     }
 
                 }
             }
         </div>
+
+        <div class="middle-left-container">
+            <div class="middle-middle-left">
+                @foreach (var item in Model)
+                {
+                    @foreach (var savedSpread in item.SavedSpreads)
+                    {
+                        if (savedSpread.OrdinalPositionId == 7 && savedSpread.CardDirection == true)
+                        {
+                            <img data-toggle="modal" data-target="#default-7" class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
+                        }
+                        else if (savedSpread.OrdinalPositionId == 7 && savedSpread.CardDirection == false)
+                        {
+                            <img data-toggle="modal" data-target="#default-7" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
+                        }
+
+                    }
+                }
+            </div>
+            <div class="middle-middle-middle">
+                @foreach (var item in Model)
+                {
+                    @foreach (var savedSpread in item.SavedSpreads)
+                    {
+                        if (savedSpread.OrdinalPositionId == 1)
+                        {
+                            <img id="card-0" data-toggle="modal" data-target="#default-1" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
+
+                        }
+                        else if (savedSpread.OrdinalPositionId == 2 && savedSpread.CardDirection == false)
+                        {
+                            <img id="card-1" data-toggle="modal" data-target="#default-2" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
+                        }
+                        else if (savedSpread.OrdinalPositionId == 2 && savedSpread.CardDirection == true)
+                        {
+                            <img id="card-1" data-toggle="modal" data-target="#default-2" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
+                        }
+                        else if (savedSpread.OrdinalPositionId == 3)
+                        {
+                            <img id="card-2" data-toggle="modal" data-target="#default-3" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
+                        }
+
+                    }
+                }
+            </div>
             <div class="middle-middle-right">
                 @foreach (var item in Model)
                 {
@@ -76,87 +187,117 @@
                     {
                         if (savedSpread.OrdinalPositionId == 6 && savedSpread.CardDirection == true)
                         {
-                            <img class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
+                        <img data-toggle="modal" data-target="#default-6" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
                         }
                         else if (savedSpread.OrdinalPositionId == 6 && savedSpread.CardDirection == false)
                         {
-                            <img class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
+                        <img data-toggle="modal" data-target="#default-6" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
                         }
 
                     }
                 }
             </div>
         </div>
-    <div class="bottom-left-container">
+        <div class="bottom-left-container">
             @foreach (var item in Model)
-                {
-                   @foreach (var savedSpread in item.SavedSpreads)
             {
-                if (savedSpread.OrdinalPositionId == 5 && savedSpread.CardDirection == true)
+                @foreach (var savedSpread in item.SavedSpreads)
                 {
-                    <img class=" card-face" src="/img/@savedSpread.Card.ImagePath" />
-                }
-                else if (savedSpread.OrdinalPositionId == 5 && savedSpread.CardDirection == false)
-                {
-                    <img class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
-                }
+                    if (savedSpread.OrdinalPositionId == 5 && savedSpread.CardDirection == true)
+                    {
+                        <img data-toggle="modal" data-target="#default-5" class=" card-face " src="/img/@savedSpread.Card.ImagePath" />
+                    }
+                    else if (savedSpread.OrdinalPositionId == 5 && savedSpread.CardDirection == false)
+                    {
+                        <img data-toggle="modal" data-target="#default-5" class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" />
+                    }
 
-            }
                 }
-    </div>
+            }
+        </div>
     </div>
     <div class="right-reading-container">
-        @foreach (var item in Model)
-        {
-            
-            
-                @foreach (var savedSpread in item.SavedSpreads)
+        <div>
+            @foreach (var item in Model)
             {
-                if ( savedSpread.CardDirection == true && savedSpread.OrdinalPositionId > 7)
-                {
-                    <img class=" card-face" src="/img/@savedSpread.Card.ImagePath" /> <span>@savedSpread.OrdinalPositionId</span>
-                }
-                else if (savedSpread.CardDirection == false && savedSpread.OrdinalPositionId > 7)
-                {
-                    <img class=" card-face invert" src="/img/@savedSpread.Card.ImagePath" /><span>@savedSpread.OrdinalPositionId</span>
-                }
 
-            
+
+                @foreach (var savedSpread in item.SavedSpreads)
+                {
+                    if (savedSpread.CardDirection == true && savedSpread.OrdinalPositionId == 8)
+                    {
+
+                            <img data-toggle="modal" data-target="#default-8" class=" card-face card-column-right" src="/img/@savedSpread.Card.ImagePath" />
+
+                    }
+                    else if(savedSpread.CardDirection == false && savedSpread.OrdinalPositionId == 8)
+                    {
+                        <img data-toggle="modal" data-target="#default-8" class=" card-face card-column-right invert" src="/img/@savedSpread.Card.ImagePath" />
+                    }
+
+                }
+                }
+        </div>
+        <div>
+            @foreach (var item in Model)
+            {
+
+
+                @foreach (var savedSpread in item.SavedSpreads)
+                {
+                    if (savedSpread.CardDirection == true && savedSpread.OrdinalPositionId == 9)
+                    {
+
+                        <img data-toggle="modal" data-target="#default-9" class=" card-face card-column-right" src="/img/@savedSpread.Card.ImagePath" />
+
+                    }
+                    else if (savedSpread.CardDirection == false && savedSpread.OrdinalPositionId == 9)
+                    { 
+                        <img data-toggle="modal" data-target="#default-9" class=" card-face card-column-right invert" src="/img/@savedSpread.Card.ImagePath" />
+                    }
+
+                }
             }
-        } 
+        </div>
+        <div>
+            @foreach (var item in Model)
+            {
+
+
+                @foreach (var savedSpread in item.SavedSpreads)
+                {
+                    if (savedSpread.CardDirection == true && savedSpread.OrdinalPositionId == 10)
+                    {
+
+                        <img data-toggle="modal" data-target="#default-10" class=" card-face card-column-right" src="/img/@savedSpread.Card.ImagePath" />
+
+                    }
+                    else if (savedSpread.CardDirection == false && savedSpread.OrdinalPositionId == 10)
+                    { <img data-toggle="modal" data-target="#default-10" class=" card-face card-column-right invert" src="/img/@savedSpread.Card.ImagePath" />}
+
+                }
+            }
+        </div>
+        <div>
+            @foreach (var item in Model)
+            {
+
+
+                @foreach (var savedSpread in item.SavedSpreads)
+                {
+                    if (savedSpread.CardDirection == true && savedSpread.OrdinalPositionId == 11)
+                    {
+
+                        <img data-toggle="modal" data-target="#default-11" class=" card-face card-column-right" src="/img/@savedSpread.Card.ImagePath" />
+
+                    }
+                    else if (savedSpread.CardDirection == false && savedSpread.OrdinalPositionId == 11)
+                    { <img data-toggle="modal" data-target="#default-11" class=" card-face card-column-right invert" src="/img/@savedSpread.Card.ImagePath" />}
+
+                }
+            }
+        </div>
+        
     </div>
-    </div>
-    
-@*@foreach (var item in Model)
-{
-
-
-    <h1>@item.Name</h1>
-
-
-    @foreach (var savedSpread in item.SavedSpreads)
-    {
-        if (savedSpread.CardDirection == true)
-        {
-            <p>
-                Direction: Up ||
-                Card: @savedSpread.Card.CardType.Name ||
-                Ordinal Position: @savedSpread.OrdinalPosition.Name
-            </p>
-        }
-        else
-        {
-            <p>
-                Direction: Down ||
-                Card: @savedSpread.Card.CardType.Name ||
-                Ordinal Position: @savedSpread.OrdinalPosition.Name
-            </p>
-        }
-        <a asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@savedSpread.Card.CardId">My Card Comments</a> <div>||</div>
-        <a asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@savedSpread.OrdinalPositionId">My Ordinal Comments</a>
-
-    }
-
-}*@
-
+</div>
 

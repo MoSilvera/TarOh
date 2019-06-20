@@ -2,14 +2,15 @@
 @{
     ViewData["Title"] = "SpreadName";
 }
+    <div class="bullshitcontainer">
+        <div class="bullshit">
+            <h1>Name This Spread</h1>
 
-<h1>Name This Spread</h1>
+            @using (Html.BeginForm("Reading", "Cards"))
+            {
+                <input type="text" name="name" />
 
-@using (Html.BeginForm("Reading", "Cards"))
-{
-    <input type="text" name="name"/>
-    
-}
-
-
+            }
+        </div>
+    </div>
 

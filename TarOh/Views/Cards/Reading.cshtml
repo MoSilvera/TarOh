@@ -1,60 +1,195 @@
 ﻿@model IEnumerable<TarOh.Models.ViewModels.Reading>
 @{
     ViewData["Title"] = "Reading";
+
 }
-<h1>Reading</h1>
-<a target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId" class="spreadCommentLink">Spread Comments</a>
+
+
+@for (int q = 0; q < 11; q++)
+{
+    string id = $"dynamicCard{q}";
+    int fish = q + 1;
+
+    <div id="@id" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        @foreach (var item in Model)
+                        {
+                            @for (int i = 0; i < 1; i++)
+                            {
+
+                                @item.Cards[q].CardType.Name;
+
+
+                            }
+                        }
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="innerbody">
+                        @foreach (var item in Model)
+                        {
+                            @for (int i = 0; i < 11; i++)
+                            {
+                                if (i == q)
+                                {
+                                     
+
+                                <div class="innerbody-left">
+                                    <img data-toggle="modal" data-target="#one" class=" card-modal-face" src="/img/@item.Cards[i].ImagePath" />
+
+                                </div>
+                                <div class="innerbody-right">
+                                    <p>
+                                        @if (item.Cards[i].CardDirection == true)
+                                        {
+                                            <span><b>Meaning:</b> @item.Cards[i].UpDefinition</span>
+                                        }
+                                        else
+                                        {
+                                            <span><b>Inverse Meaning:</b> @item.Cards[i].DownDefinition</span>
+                                        }
+                                    </p>
+                                    <p>
+                                        <b>My Card Comments:</b>
+                                        @foreach (var cardcomment in item.CardComments)
+                                        {
+                                            if (cardcomment.CardId == item.Cards[i].CardId)
+                                            {
+                                                <div>@cardcomment.Comment</div>
+                                                <span>
+                                                    <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="Edit" asp-route-id="@cardcomment.CardCommentId"><i class="fas fa-edit"></i></a>
+                                                </span>
+                                            }
+                                        }
+                                    </p>
+                                    <p>
+                                        @if (i == 0)
+                                        {
+                                            <b> Ordinal Position Signifier:</b>
+                                        }
+                                        else
+                                        {
+                                            <b> Ordinal Position:</b>
+
+                                                }
+                                        @foreach (var op in item.OrdinalPositions)
+                                        {
+                                            if (op.OrdinalPositionId == i)
+                                            {
+                                                <span>@op.Definition</span>
+                                            }
+                                        }
+                                    </p>
+                                    <p>
+                                        <b>My Ordinal Comments:</b>
+                                        @foreach (var oc in item.OrdinalComments)
+                                        {
+                                            if (oc.OrdinalPositionId == i++)
+                                            {
+                                                <div>@oc.Comment</div>
+                                            }
+
+
+                                        }
+                                    </p>
+                                    <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="CardComments" asp-action="Create" asp-route-id="@item.Cards[q].CardId">Add Card Comments</a>
+                                    <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="OrdinalComments" asp-action="Create" asp-route-id="@fish">Add Ordinal Comments</a>
+
+                                    </div>
+                                }
+
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+<div class="titleDiv">
+
+    <div class="titleInner"><h1>Reading</h1></div>
+    <div class="titleInner"><a type="button" target="_blank" asp-area="" asp-controller="SpreadComments" asp-action="GetUserSpreadComments" asp-route-id="@Model.FirstOrDefault().SpreadId" class="btn btn-secondary spreadCommentLink">Spread Comments</a></div>
+
+
+</div>
 <div class="reading-container">
 
     <div class="left-reading-container">
-        <div class="top-left-container"> @foreach(var item in Model){
-            @for (int i = 3; i < 4; i++)
-            {
-                if (item.Cards[i].CardDirection == true)
-                {
-                    <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
-                }
-                else
-                {
-                    <img class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
-                }
-
-            }}
-        </div>
-
-    <div class="middle-left-container">
-        <div class="middle-middle-left">
+        <div class="top-left-container">
             @foreach (var item in Model)
             {
-                @for (int i = 6; i < 7; i++)
+                @for (int i = 3; i < 4; i++)
                 {
                     if (item.Cards[i].CardDirection == true)
                     {
-                        <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                        <img data-toggle="modal" data-target="#dynamicCard3" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
                     }
                     else
                     {
-                        <img class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
+                        <img data-toggle="modal" data-target="#dynamicCard3" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
                     }
+
                 }
             }
         </div>
-            <div class="middle-middle-middle">
-                    @foreach (var item in Model)
+
+        <div class="middle-left-container">
+            <div class="middle-middle-left">
+                @foreach (var item in Model)
+                {
+                    @for (int i = 6; i < 7; i++)
                     {
-                        @for (int i = 0; i < 3; i++)
+                        if (item.Cards[i].CardDirection == true)
                         {
-                            if (i == 1 && item.Cards[i].CardDirection == false)
-                            {
-                            <img id="card-@i" class=" card-face invert"  src="/img/@item.Cards[i].ImagePath" />
-                            }
-                            else
-                            {
-                                 <img id="card-@i" class=" card-face"  src="/img/@item.Cards[i].ImagePath" />
-                            }
+                            <img data-toggle="modal" data-target="#dynamicCard6" class=" card-face " src="/img/@item.Cards[i].ImagePath" />
+                        }
+                        else
+                        {
+                            <img data-toggle="modal" data-target="#dynamicCard6" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
                         }
                     }
-                </div>
+                }
+            </div>
+            <div class="middle-middle-middle">
+                @foreach (var item in Model)
+                {
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        if (i == 0)
+                        {
+                            <img data-toggle="modal" data-target="#dynamicCard0" id="card-0" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                        }
+                        else if (i == 1 && item.Cards[i].CardDirection == false)
+                        {
+                            <img data-toggle="modal" data-target="#dynamicCard1" id="card-1" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
+                        }
+                        else if (i == 1 && item.Cards[i].CardDirection == true)
+                        {
+                            <img data-toggle="modal" data-target="#dynamicCard1" id="card-1" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                        }
+                        else if (i == 2 && item.Cards[i].CardDirection == true)
+                        {
+                            <img data-toggle="modal" data-target="#dynamicCard2" id="card-2" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                        }
+                        else
+                        {
+                            <img data-toggle="modal" data-target="#dynamicCard2" id="card-2" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
+                        }
+                    }
+                }
+            </div>
             <div class="middle-middle-right">
                 @foreach (var item in Model)
                 {
@@ -62,115 +197,142 @@
                     {
                         if (item.Cards[i].CardDirection == true)
                         {
-                            <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                            <img data-toggle="modal" data-target="#dynamicCard5" class=" card-face " src="/img/@item.Cards[i].ImagePath" />
                         }
                         else
                         {
-                            <img class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
+                            
+                            <img data-toggle="modal" data-target="#dynamicCard5" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
                         }
                     }
                 }
             </div>
         </div>
-    <div class="bottom-left-container">
+        <div class="bottom-left-container">
             @foreach (var item in Model)
+            {
+                @for (int i = 4; i < 5; i++)
                 {
-                    @for (int i = 4; i < 5; i++)
+                    if (item.Cards[i].CardDirection == true)
                     {
-                           if (item.Cards[i].CardDirection == true)
-                                {
-                                    <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
-                                }
-                                else
-                                {
-                                    <img class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
-                                }
+                        <img data-toggle="modal" data-target="#dynamicCard4" class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                    }
+                    else
+                    {
+                        <img data-toggle="modal" data-target="#dynamicCard4" class=" card-face invert" src="/img/@item.Cards[i].ImagePath" />
                     }
                 }
-    </div>
+            }
+        </div>
     </div>
     <div class="right-reading-container">
         @foreach (var item in Model)
         {
             @for (int i = 7; i < 11; i++)
             {
-                if (item.Cards[i].CardDirection == true)
+                if (i == 7 && item.Cards[i].CardDirection == true)
                 {
-                    <img class=" card-face card-column-right" src="/img/@item.Cards[i].ImagePath" />
+
+                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right" src="/img/@item.Cards[i].ImagePath" />
                 }
-                else
+                else if (i == 7 && item.Cards[i].CardDirection == false)
                 {
-                    <img class=" card-face invert card-column-right" src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
                 }
-            }} 
+                else if (i == 8 && item.Cards[i].CardDirection == false)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 8 && item.Cards[i].CardDirection == true)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 9 && item.Cards[i].CardDirection == true)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 9 && item.Cards[i].CardDirection == false)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right invert " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 10 && item.Cards[i].CardDirection == true)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                }
+                else if (i == 10 && item.Cards[i].CardDirection == false)
+                {
+                    <img data-toggle="modal" data-target="#dynamicCard10" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
+                }
+            }}
     </div>
 
 
 
+
     @*@foreach (var item in Model)
-    {
+        {
 
 
-            @for (int i = 0; i < item.Cards.Count; i++)
-            {
+                @for (int i = 0; i < item.Cards.Count; i++)
+                {
 
 
-                    if (item.Cards[i].CardDirection == true)
-                    {
-                        <span class="card">
-                            <span class="card-@i">
-                                 <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
-                                Card: @Html.DisplayFor(modelItem => item.Cards[i].CardType.Name) ||
-                                Definition: @Html.DisplayFor(modelItem => item.Cards[i].UpDefinition) ||
+                        if (item.Cards[i].CardDirection == true)
+                        {
+                            <span class="card">
+                                <span class="card-@i">
+                                     <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                                    Card: @Html.DisplayFor(modelItem => item.Cards[i].CardType.Name) ||
+                                    Definition: @Html.DisplayFor(modelItem => item.Cards[i].UpDefinition) ||
 
-                                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@item.Cards[i].CardId">My Comments</a>
-                                @i
+                                    <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@item.Cards[i].CardId">My Comments</a>
+                                    @i
+                                </span>
+
+
+
+
+                            </span>
+
+                        }
+                        else
+                        {
+
+                            <span class="card">
+                                <span class="card-@i">
+                                    <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
+                                    Card: @Html.DisplayFor(modelItem => item.Cards[i].CardType.Name) ||
+                                    Definition: @Html.DisplayFor(modelItem => item.Cards[i].DownDefinition) ||
+
+                                    <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@item.Cards[i].CardId">My Comments</a>
+                                    @i
+                                </span>
+
+
+
                             </span>
 
 
 
-
-                        </span>
-
-                    }
-                    else
-                    {
-
-                        <span class="card">
-                            <span class="card-@i">
-                                <img class=" card-face" src="/img/@item.Cards[i].ImagePath" />
-                                Card: @Html.DisplayFor(modelItem => item.Cards[i].CardType.Name) ||
-                                Definition: @Html.DisplayFor(modelItem => item.Cards[i].DownDefinition) ||
-
-                                <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="GetUserCardComments" asp-route-id="@item.Cards[i].CardId">My Comments</a>
-                                @i
-                            </span>
-
-                    
-
-                        </span>
-
-
+                        }
 
                     }
 
-                }
-            
 
 
 
 
-            foreach (var ordinalPosition in item.OrdinalPositions)
-            {
-            <div>.....ORDINAL POSITION.....</div>
-            <p>
-                Position: @Html.DisplayFor(modelItem => ordinalPosition.Name) ||
-                Definition: @Html.DisplayFor(modelItem => ordinalPosition.Definition)
-                <a target="_blank" asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@ordinalPosition.OrdinalPositionId">My Comments</a>
+                foreach (var ordinalPosition in item.OrdinalPositions)
+                {
+                <div>.....ORDINAL POSITION.....</div>
+                <p>
+                    Position: @Html.DisplayFor(modelItem => ordinalPosition.Name) ||
+                    Definition: @Html.DisplayFor(modelItem => ordinalPosition.Definition)
+                    <a target="_blank" asp-area="" asp-controller="OrdinalComments" asp-action="GetUserOrdinalComments" asp-route-id="@ordinalPosition.OrdinalPositionId">My Comments</a>
 
-            </p>
+                </p>
 
-        }
-    }*@
+            }
+        }*@
 
 </div>

@@ -3,40 +3,55 @@
 @{
     ViewData["Title"] = "MySavedSpreads";
 }
+ 
+    <div class="spreadsTitle"><h1>Your Spreads</h1></div>
+<div class="mySpreads">
+    @foreach (var item in Model)
+    {
+    <div class="display">
+        <div class="card-container">
+            <div class="card">
+                <div class="side cardz"><img class="" src="~/img/card_back_black.png" alt="Playing Card"></div>
+                <div class="side back"><a asp-action="ViewSavedSpread" asp-route-id="@item.SpreadId">@item.Name</a> <span>@item.ReadingDate</span></div>
+            </div>
 
-<h1>@Model.FirstOrDefault().User.FirstName's Spreads</h1>
+        </div>
+        <form asp-action="Delete" asp-controller="Spreads" asp-route-id="@item.SpreadId"><button type="submit" class="btn btn-danger">Delete</button></form>
+    </div>
+    }
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReadingDate)
-            </th>
-           
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReadingDate)
-            </td>
-            
-            <td>
-                <a asp-action="ViewSavedSpread" asp-route-id="@item.SpreadId">View Spread</a> |
-                <a asp-action="Delete" asp-route-id="@item.SpreadId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    @*<p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ReadingDate)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReadingDate)
+                    </td>
+
+                    <td>
+                        <a asp-action="ViewSavedSpread" asp-route-id="@item.SpreadId">View Spread</a> |
+                        <a asp-action="Delete" asp-route-id="@item.SpreadId">Delete</a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>*@
