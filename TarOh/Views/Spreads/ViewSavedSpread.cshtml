@@ -49,10 +49,10 @@
 
                                             @if (item.SavedSpreads[i].OrdinalPositionId == 1)
                                             {
-                                                <span><b>Meaning:</b> @item.SavedSpreads[i].Card.UpDefinition</span>
-                                                <span><b>Inverse Meaning:</b> @item.SavedSpreads[i].Card.DownDefinition</span>
+                                                <div><b>Meaning:</b> @item.SavedSpreads[i].Card.UpDefinition</div>
+                                                <div><b>Inverse Meaning:</b> @item.SavedSpreads[i].Card.DownDefinition</div>
                                             }
-                                            else if (item.SavedSpreads[i].Card.CardDirection == true)
+                                            else if (item.SavedSpreads[q].CardDirection == true)
                                             {
                                                 <span><b>Meaning:</b> @item.SavedSpreads[i].Card.UpDefinition</span>
                                             }
