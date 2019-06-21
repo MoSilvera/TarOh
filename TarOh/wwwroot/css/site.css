@@ -428,3 +428,7 @@ body {
         line-height: 20;
     }
 
+    .btn-secondary{
+        margin: 5px;
+    }
+
