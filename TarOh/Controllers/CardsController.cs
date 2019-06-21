@@ -10,8 +10,8 @@ using TarOh.Models;
 using TarOh.Models.ViewModels;
 using TarOh.Controllers;
 using Microsoft.AspNetCore.Identity;
-using System.Web; 
-
+using System.Web;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TarOh.Controllers
 {
@@ -31,7 +31,7 @@ namespace TarOh.Controllers
         {
             return View(); 
         }
-
+        [Authorize]
         public async Task<IActionResult> Reading(int deckId, string name)
         {
             
@@ -147,6 +147,7 @@ namespace TarOh.Controllers
         }
 
         // GET: Cards/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
