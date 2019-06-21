@@ -46,7 +46,13 @@
                                     </div>
                                     <div class="innerbody-right">
                                         <p>
-                                            @if (item.SavedSpreads[i].Card.CardDirection == true)
+
+                                            @if (item.SavedSpreads[i].OrdinalPositionId == 1)
+                                            {
+                                                <span><b>Meaning:</b> @item.SavedSpreads[i].Card.UpDefinition</span>
+                                                <span><b>Inverse Meaning:</b> @item.SavedSpreads[i].Card.DownDefinition</span>
+                                            }
+                                            else if (item.SavedSpreads[i].Card.CardDirection == true)
                                             {
                                                 <span><b>Meaning:</b> @item.SavedSpreads[i].Card.UpDefinition</span>
                                             }
@@ -61,10 +67,8 @@
                                             {
                                                 if (cardcomment.CardId == item.SavedSpreads[i].Card.CardId)
                                                 {
-                                                    <div>@cardcomment.Comment</div>
-                                                    <span>
-                                                        <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="Edit" asp-route-id="@cardcomment.CardCommentId"><i class="fas fa-edit"></i></a>
-                                                    </span>
+                                                    <div>@cardcomment.Comment <a target="_blank" asp-area="" asp-controller="CardComments" asp-action="Edit" asp-route-id="@cardcomment.CardCommentId"><i class="fas fa-edit"></i></a></div>
+                                                   
                                                 }
                                             }
                                         </p>
@@ -94,9 +98,9 @@
 
                                         </p>
                                         <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="CardComments" asp-action="Create" asp-route-id="@item.SavedSpreads[q].CardId">Add Card Comments</a>
-                                        <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="OrdinalComments" asp-action="Create" asp-route-id="@q">Add Ordinal Comments</a>
+                                        <a target="_blank" type="button" class="btn btn-secondary" asp-area="" asp-controller="OrdinalComments" asp-action="Create" asp-route-id="@item.SavedSpreads[q].OrdinalPositionId ">Add Ordinal Comments</a>
 
-                                    </div>
+</div>
                                 }
 
 

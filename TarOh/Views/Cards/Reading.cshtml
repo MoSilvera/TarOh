@@ -228,40 +228,40 @@
     <div class="right-reading-container">
         @foreach (var item in Model)
         {
-            @for (int i = 7; i < 11; i++)
+            @for (int g = 7; g < 11; g++)
             {
-                if (i == 7 && item.Cards[i].CardDirection == true)
+                if (g == 7 && item.Cards[g].CardDirection == true)
                 {
 
-                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right" src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right" src="/img/@item.Cards[g].ImagePath" />
                 }
-                else if (i == 7 && item.Cards[i].CardDirection == false)
+                else if (g == 7 && item.Cards[g].CardDirection == false)
                 {
-                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard7" class=" card-face card-column-right invert" src="/img/@item.Cards[g].ImagePath" />
                 }
-                else if (i == 8 && item.Cards[i].CardDirection == false)
+                else if (g == 8 && item.Cards[g].CardDirection == false)
                 {
-                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right invert" src="/img/@item.Cards[g].ImagePath" />
                 }
-                else if (i == 8 && item.Cards[i].CardDirection == true)
+                else if (g == 8 && item.Cards[g].CardDirection == true)
                 {
-                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right " src="/img/@item.Cards[g].ImagePath" />
                 }
-                else if (i == 9 && item.Cards[i].CardDirection == true)
+                else if (g == 9 && item.Cards[g].CardDirection == true)
                 {
-                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right " src="/img/@item.Cards[g].ImagePath" />
                 }
-                else if (i == 9 && item.Cards[i].CardDirection == false)
+                else if (g == 9 && item.Cards[g].CardDirection == false)
                 {
-                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right invert " src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard9" class=" card-face card-column-right invert " src="/img/@item.Cards[g].ImagePath" />
                 }
-                else if (i == 10 && item.Cards[i].CardDirection == true)
+                else if (g == 10 && item.Cards[g].CardDirection == true)
                 {
-                    <img data-toggle="modal" data-target="#dynamicCard8" class=" card-face card-column-right " src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard10" class=" card-face card-column-right " src="/img/@item.Cards[g].ImagePath" />
                 }
-                else if (i == 10 && item.Cards[i].CardDirection == false)
+                else if (g == 10 && item.Cards[g].CardDirection == false)
                 {
-                    <img data-toggle="modal" data-target="#dynamicCard10" class=" card-face card-column-right invert" src="/img/@item.Cards[i].ImagePath" />
+                    <img data-toggle="modal" data-target="#dynamicCard10" class=" card-face card-column-right invert" src="/img/@item.Cards[g].ImagePath" />
                 }
             }}
     </div>
