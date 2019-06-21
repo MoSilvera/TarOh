@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -29,6 +30,7 @@ namespace TarOh.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize]
         public async Task<IActionResult> MySavedSpreads()
         {
             var user = await GetCurrentUserAsync();
@@ -40,6 +42,7 @@ namespace TarOh.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [Authorize]
         public async Task<IActionResult> ViewSavedSpread(int? id)
         {
             var user = await GetCurrentUserAsync();
